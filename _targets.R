@@ -11,38 +11,27 @@ options(clustermq.scheduler = "multicore")
 # options(clustermq.scheduler = "sge", clustermq.template = "sge.tmpl")
 
 tar_options(
-  packages = c("coda", "fs", "rmarkdown", "rstan", "targets", "tidyverse")
+  packages = c("biglm", "readxl", "rmarkdown", "tidyverse")
 )
 tar_pipeline(
   tar_target(
-    model,
-    "stan/model.stan",
+    raw_data_file,
+    "data/raw_data.xlsx",
     format = "file",
     deployment = "local"
   ),
   tar_target(
-    compiled,
-    compile_model(model),
-    format = "file",
-    deployment = "local"
-  ),
-  tar_target(
-    index,
-    seq_len(10), # Change the number of simulations here.
+    raw_data,
+    read_excel(raw_data_file),
     deployment = "local"
   ),
   tar_target(
     data,
-    simulate_data(),
-    pattern = map(index),
-    format = "fst_tbl"
+    raw_data %>%
+      mutate(Ozone = replace_na(Ozone, mean(Ozone, na.rm = TRUE)))
   ),
-  tar_target(
-    fit,
-    fit_model(compiled, data),
-    pattern = map(data),
-    format = "fst_tbl"
-  ),
+  tar_target(hist, create_plot(data)),
+  tar_target(fit, biglm(Ozone ~ Wind + Temp, data)),
   tar_target(
     report, {
       render("report.Rmd", quiet = TRUE)

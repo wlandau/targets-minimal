@@ -10,57 +10,21 @@ knitr::opts_chunk$set(echo = TRUE)
 options(tidyverse.quiet = TRUE)
 ```
 
-This report contains the validation results of a small Bayesian hierarchical model. Here, we summarize the results computed in earlier targets of the pipeline. We reference our targets with `tar_load()` and `tar_read()`. This ensures
+This report contains the results of a minimal `targets` data analysis pipeline. We reference our targets with `tar_load()` and `tar_read()`. This ensures
 
 1. Because of the `tar_knitr()` call (see `_targets.R`) `targets` automatically detects the dependencies of this report and rebuilds it when its dependencies change.
 1. We can run the report by itself if the targets are already in the `_targets/` data store.
 
+Here is our fitted regression model of ozone versus wind and temperature.
+
+```{r}
+tar_read(fit)
+```
+
+Here is our histogram of ozone content.
+
 ```{r}
 library(targets)
-tar_load(fit)
+tar_load(hist)
+hist
 ```
-
-Our results are in a data frame with one row per simulated dataset and the following columns.
-
-* `cover_beta`: Logical, whether the true value of `beta`
-  is covered in the 50% credible interval from the model.
-* `beta_true`: True value of `beta` used to simulate the original data.
-* `beta_25`: posterior 25th percentile of `beta`.
-* `beta_median`: posterior median of `beta`.
-* `beta_75`: posterior 75th percentile of `beta`.
-* `psrf`: Maximum potential scale reduction factor across all the model parameters. A value above 1.1 is traditionally considered evidence of lack of convergence.
-* `ess`: Minimum effective sample size across all the model parameters. If this value is far lower than the number of non-warmup MCMC iterations, this is evidence of MCMC autocorrelation, which could mean the model needs reparameterization.
-
-```{r, paged.print = FALSE}
-fit
-```
-
-If we implemented the model in `stan/model.stan` correctly, then roughly 50% of model fits should cover the true `beta` parameter that generated the data.
-
-```{r}
-mean(fit$beta_cover)
-```
-
-The posterior median of `beta` should be reasonably close to the true value.
-
-```{r}
-ggplot(fit) +
-  geom_point(aes(x = beta_true, y = beta_median)) +
-  geom_abline(intercept = 0, slope = 1) +
-  theme_gray(16)
-```
-
-We should also check convergence diagnostics. `psrf` should ideally be low.
-
-```{r}
-ggplot(fit) +
-  geom_histogram(aes(x = psrf))
-```
-
-Effective sample size should ideally be high.
-
-```{r}
-ggplot(fit) +
-  geom_histogram(aes(x = ess))
-```
-
