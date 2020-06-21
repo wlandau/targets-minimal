@@ -1,7 +1,5 @@
 ---
-title: "Validation results"
-author: "You"
-date: "6/20/2020"
+title: "Results report"
 output: html_document
 ---
 
