@@ -17,3 +17,4 @@ vignettes/*.pdf
 stan/model.rds
 _targets
 report.html
+.Rproj.user
