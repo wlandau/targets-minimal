@@ -13,8 +13,3 @@ assignees: ""
 
 ## Question
 
-Describe your question in prose as clearly and concisely as possible. The following three-paragraph format is preferred.
-
-1. State the general question in 1-2 matter-of-fact high-level sentences.
-2. Explain supporting context and details necessary to understand paragraph 1.
-3. Suggest solutions, implementation details, or other ideas if applicable.

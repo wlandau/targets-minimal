@@ -14,11 +14,7 @@ assignees: wlandau
 
 ## Description
 
-Describe the bug clearly and concisely. The following three-paragraph format is preferred.
-
-1. State the general problem or question in 1-2 matter-of-fact high-level sentences.
-2. Explain supporting context and details necessary to understand paragraph 1.
-3. Suggest solutions, implementation details, or other ideas if you have them.
+Please describe the bug.
 
 ## Reproducible example
 

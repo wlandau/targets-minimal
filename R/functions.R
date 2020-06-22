@@ -10,6 +10,6 @@
 #' create_plot(data)
 create_plot <- function(data) {
   ggplot(data) +
-    geom_histogram(aes(x = Ozone), bins = 10) +
+    geom_histogram(aes(x = Ozone), bins = 12) +
     theme_gray(24)
 }
