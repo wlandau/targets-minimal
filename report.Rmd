@@ -10,7 +10,7 @@ options(tidyverse.quiet = TRUE)
 
 This report contains the results of a minimal `targets` data analysis pipeline. We reference our targets with `tar_load()` and `tar_read()`. This ensures
 
-1. Because of the `tar_knitr()` call (see `_targets.R`) `targets` automatically detects the dependencies of this report and rebuilds it when its dependencies change.
+1. Because of the `tar_render()` function from the [`tarchetypes`](https://wlandau.github.io/tarchetypes) package (see `_targets.R`) `targets` automatically detects the dependencies of this report and rebuilds it when its dependencies change.
 1. We can run the report by itself if the targets are already in the `_targets/` data store.
 
 Here is our fitted regression model of ozone versus wind and temperature.
