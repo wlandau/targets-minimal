@@ -1,4 +1,5 @@
 library(targets)
+library(tarchetypes)
 source("R/functions.R")
 options(tidyverse.quiet = TRUE)
 
@@ -33,12 +34,5 @@ tar_pipeline(
   ),
   tar_target(hist, create_plot(data)),
   tar_target(fit, biglm(Ozone ~ Wind + Temp, data)),
-  tar_target(
-    report, {
-      render("report.Rmd", quiet = TRUE)
-      c(!!tar_knitr("report.Rmd"), "report.html")
-    },
-    format = "file",
-    deployment = "local"
-  )
+  tar_render(report, "report.Rmd")
 )
