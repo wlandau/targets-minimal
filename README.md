@@ -62,7 +62,7 @@ installations required.
 1.  If you are running locally instead of [this RStudio cloud
     workspace](https://rstudio.cloud/project/1430691)
     1.  Install the [`targets`](https://github.com/wlandau/targets)
-        package, as well as the packages listed in the `tar_options()`
+        package, as well as the packages listed in the `tar_option_set()`
         call in
         [`_targets.R`](https://github.com/wlandau/targets-minimal/blob/master/_targets.R).
     2.  Download the files in [this

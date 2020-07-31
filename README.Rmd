@@ -60,7 +60,7 @@ You can try out the example as long as you have a browser and an internet connec
 ## How to run
 
 1. If you are running locally instead of [this RStudio cloud workspace](https://rstudio.cloud/project/1430691)
-    1. Install the [`targets`](https://github.com/wlandau/targets) package, as well as the packages listed in the `tar_options()` call in [`_targets.R`](https://github.com/wlandau/targets-minimal/blob/master/_targets.R).
+    1. Install the [`targets`](https://github.com/wlandau/targets) package, as well as the packages listed in the `tar_option_set()` call in [`_targets.R`](https://github.com/wlandau/targets-minimal/blob/master/_targets.R).
     1. Download the files in [this repository](https://github.com/wlandau/targets-minimal), either [through Git](https://happygitwithr.com/existing-github-first.html#new-rstudio-project-via-git-clone) or through [this link](https://github.com/wlandau/targets-minimal/archive/master.zip).
 1. Run the `targets` pipeline by either running [`run.R`](https://github.com/wlandau/targets-minimal/blob/master/run.R) or [`run.sh`](https://github.com/wlandau/targets-minimal/blob/master/run.sh). (The latter is for Unix-like systems only).
 1. View the validation results in the output `report.html` file.

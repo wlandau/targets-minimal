@@ -10,7 +10,7 @@ options(clustermq.scheduler = "multicore")
 # Uncomment below to deploy targets to parallel jobs
 # on a Sun Grid Engine cluster when running tar_make_clustermq().
 # options(clustermq.scheduler = "sge", clustermq.template = "sge.tmpl")
-tar_options(packages = c("biglm", "rmarkdown", "tidyverse"))
+tar_option_set(packages = c("biglm", "rmarkdown", "tidyverse"))
 
 # Define the pipeline. tar_pipeline() can accept
 # individual tar_target() objects or nested lists of
