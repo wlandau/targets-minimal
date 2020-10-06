@@ -20,12 +20,12 @@ tar_pipeline(
     raw_data_file,
     "data/raw_data.csv",
     format = "file",
-    deployment = "local"
+    deployment = "master"
   ),
   tar_target(
     raw_data,
     read_csv(raw_data_file, col_types = cols()),
-    deployment = "local"
+    deployment = "master"
   ),
   tar_target(
     data,
