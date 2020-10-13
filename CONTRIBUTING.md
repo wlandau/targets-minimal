@@ -4,7 +4,7 @@ Development is a community effort, and we welcome participation.
 
 ## Code of Conduct
 
-By participating in this project, you agree to abide by the [code of conduct](https://github.com/wlandau/targets/blob/master/CODE_OF_CONDUCT.md).
+By participating in this project, you agree to abide by the [code of conduct](https://github.com/wlandau/targets/blob/main/CODE_OF_CONDUCT.md).
 
 ## Issues
 
@@ -44,5 +44,5 @@ Please also follow these additional guidelines.
 * Respect the architecture and reasoning of the project.
 * If possible, keep contributions small enough to easily review stanly. It is okay to split up your work into multiple pull requests.
 * Format your code according to the [tidyverse style guide](https://style.tidyverse.org/) and check your formatting with the `lint_package()` function from the [`lintr`](https://github.com/jimhester/lintr) package.
-* Describe your contribution in the project's [`NEWS.md`](https://github.com/wlandau/targets/blob/master/NEWS.md) file. Be sure to mention relevent GitHub issue numbers and your GitHub name as done in existing news entries.
-* If you feel contribution is substantial enough for official author or contributor status, please add yourself as an author in the [`DESCRIPTION](https://github.com/wlandau/targets-minimal/blob/master/DESCRIPTION) file.
+* Describe your contribution in the project's [`NEWS.md`](https://github.com/wlandau/targets/blob/main/NEWS.md) file. Be sure to mention relevent GitHub issue numbers and your GitHub name as done in existing news entries.
+* If you feel contribution is substantial enough for official author or contributor status, please add yourself as an author in the [`DESCRIPTION](https://github.com/wlandau/targets-minimal/blob/main/DESCRIPTION) file.

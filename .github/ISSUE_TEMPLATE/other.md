@@ -8,8 +8,8 @@ assignees: ""
 
 ## Prework
 
-* [ ] I understand and agree to this repository's [code of conduct](https://github.com/wlandau/targets-minimal/blob/master/CODE_OF_CONDUCT.md).
-* [ ] I understand and agree to this repository's [contributing guidelines](https://github.com/wlandau/targets-minimal/blob/master/CONTRIBUTING.md).
+* [ ] I understand and agree to this repository's [code of conduct](https://github.com/wlandau/targets-minimal/blob/main/CODE_OF_CONDUCT.md).
+* [ ] I understand and agree to this repository's [contributing guidelines](https://github.com/wlandau/targets-minimal/blob/main/CONTRIBUTING.md).
 
 ## Description
 

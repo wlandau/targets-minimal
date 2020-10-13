@@ -12,6 +12,9 @@ options(clustermq.scheduler = "multicore")
 # options(clustermq.scheduler = "sge", clustermq.template = "sge.tmpl")
 tar_option_set(packages = c("biglm", "rmarkdown", "tidyverse"))
 
+library(future)
+future::plan(future::multiprocess)
+
 # Define the pipeline. tar_pipeline() can accept
 # individual tar_target() objects or nested lists of
 # tar_target() objects.
@@ -20,12 +23,12 @@ tar_pipeline(
     raw_data_file,
     "data/raw_data.csv",
     format = "file",
-    deployment = "master"
+    deployment = "main"
   ),
   tar_target(
     raw_data,
     read_csv(raw_data_file, col_types = cols()),
-    deployment = "master"
+    deployment = "main"
   ),
   tar_target(
     data,

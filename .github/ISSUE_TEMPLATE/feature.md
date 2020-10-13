@@ -8,8 +8,8 @@ assignees: wlandau
 
 ## Prework
 
-* [ ] I understand and agree to this repository's [code of conduct](https://github.com/wlandau/targets-minimal/blob/master/CODE_OF_CONDUCT.md).
-* [ ] I understand and agree to this repository's [contributing guidelines](https://github.com/wlandau/targets-minimal/blob/master/CONTRIBUTING.md).
+* [ ] I understand and agree to this repository's [code of conduct](https://github.com/wlandau/targets-minimal/blob/main/CODE_OF_CONDUCT.md).
+* [ ] I understand and agree to this repository's [contributing guidelines](https://github.com/wlandau/targets-minimal/blob/main/CONTRIBUTING.md).
 * [ ] New features take time and effort to create, and they take even more effort to maintain. So if the purpose of the feature is to resolve a struggle you are encountering personally, please consider first posting a "trouble" or "other" issue so we can discuss your use case and search for existing solutions first.
 
 ## Proposal
