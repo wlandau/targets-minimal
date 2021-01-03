@@ -15,10 +15,8 @@ tar_option_set(packages = c("biglm", "rmarkdown", "tidyverse"))
 library(future)
 future::plan(future::multiprocess)
 
-# Define the pipeline. tar_pipeline() can accept
-# individual tar_target() objects or nested lists of
-# tar_target() objects.
-tar_pipeline(
+# Define the pipeline. A pipeline is just a list of targets.
+list(
   tar_target(
     raw_data_file,
     "data/raw_data.csv",
