@@ -1,9 +1,0 @@
-## From https://github.com/mschubert/clustermq/wiki/SGE
-#$ -N {{ job_name }}  # Worker name.
-#$ -t 1-{{ n_jobs }}  # Submit workers as an array.
-#$ -j y               # Combine stdout and stderr into one worker log file.
-#$ -o /dev/null       # Worker log files.
-#$ -cwd               # Use project root as working directory.
-#$ -V                 # Use environment variables.
-# module load R       # Uncomment if R is an environment module on the cluster.
-CMQ_AUTH={{ auth }} R --no-save --no-restore -e 'clustermq:::worker("{{ master }}")' # Leave alone.

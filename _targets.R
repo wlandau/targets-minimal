@@ -2,20 +2,6 @@ library(targets)
 library(tarchetypes)
 source("R/functions.R")
 options(tidyverse.quiet = TRUE)
-
-# Uncomment below to use local multicore computing
-# when running tar_make_clustermq():
-options(clustermq.scheduler = "multicore")
-
-# Uncomment below to deploy targets to parallel jobs
-# on a Sun Grid Engine cluster when running tar_make_clustermq().
-# options(clustermq.scheduler = "sge", clustermq.template = "sge.tmpl")
-tar_option_set(packages = c("biglm", "rmarkdown", "tidyverse"))
-
-# Uncomment if using tar_make_future():
-# future::plan(future::multisession)
-
-# Define the pipeline. A pipeline is just a list of targets.
 list(
   tar_target(
     raw_data_file,
@@ -34,6 +20,5 @@ list(
       mutate(Ozone = replace_na(Ozone, mean(Ozone, na.rm = TRUE)))
   ),
   tar_target(hist, create_plot(data)),
-  tar_target(fit, biglm(Ozone ~ Wind + Temp, data)),
-  tar_render(report, "report.Rmd")
+  tar_target(fit, biglm(Ozone ~ Wind + Temp, data))
 )
