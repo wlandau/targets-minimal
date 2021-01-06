@@ -4,7 +4,7 @@ source("R/functions.R")
 options(tidyverse.quiet = TRUE)
 
 # Uncomment below to use local multicore computing
-# when running tar_make_clustermq().
+# when running tar_make_clustermq():
 options(clustermq.scheduler = "multicore")
 
 # Uncomment below to deploy targets to parallel jobs
@@ -12,8 +12,8 @@ options(clustermq.scheduler = "multicore")
 # options(clustermq.scheduler = "sge", clustermq.template = "sge.tmpl")
 tar_option_set(packages = c("biglm", "rmarkdown", "tidyverse"))
 
-library(future)
-future::plan(future::multiprocess)
+# Uncomment if using tar_make_future():
+# future::plan(future::multisession)
 
 # Define the pipeline. A pipeline is just a list of targets.
 list(
