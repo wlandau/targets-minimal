@@ -17,7 +17,7 @@ This repository is an example data analysis workflow with [`targets`](https://gi
 
 ## How to access
 
-You can try out the example as long as you have a browser and an internet connection. [Click here](https://rstudio.cloud/project/1430691) to navigate your browser to an RStudio Cloud instance. Alternatively, you can clone or download this code repository and install the R packages [listed here](https://github.com/wlandau/targets-minimal/blob/03835c2aa4679dcf3f28c623a06d7505b18bee17/DESCRIPTION#L25-L30).
+You can try out this example project as long as you have a browser and an internet connection. [Click here](https://rstudio.cloud/project/1430691) to navigate your browser to an RStudio Cloud instance. Alternatively, you can clone or download this code repository and install the R packages [listed here](https://github.com/wlandau/targets-minimal/blob/03835c2aa4679dcf3f28c623a06d7505b18bee17/DESCRIPTION#L25-L30).
 
 ## How to run
 

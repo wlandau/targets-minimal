@@ -1,7 +1,7 @@
 library(targets)
 source("R/functions.R")
 options(tidyverse.quiet = TRUE)
-tar_option_set(packages = c("biglm", "rmarkdown", "tidyverse"))
+tar_option_set(packages = c("biglm", "tidyverse"))
 list(
   tar_target(
     raw_data_file,
