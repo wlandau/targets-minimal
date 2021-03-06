@@ -3,7 +3,7 @@ title: "Results"
 output: html_document
 ---
 
-One of the upstream targets produced a histogram of ozone levels. Here is the result.
+One of the targets produced a histogram of ozone levels. Here is the result.
 
 ```{r}
 library(ggplot2)
