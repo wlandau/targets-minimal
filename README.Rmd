@@ -50,7 +50,7 @@ For every GitHub push on main branch, the `targets` pipeline runs on [GitHub Act
   uses: actions/cache@v2
   with:
     path: _targets
-    key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta') }}
+    key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
     restore-keys: ${{ runner.os }}-targets-
 
 - name: Run targets pipeline
