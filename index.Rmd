@@ -1,0 +1,12 @@
+---
+title: "Results"
+output: html_document
+---
+
+One of the upstream targets produced a histogram of ozone levels. Here is the result.
+
+```{r}
+library(ggplot2)
+library(targets)
+tar_read(hist)
+```
