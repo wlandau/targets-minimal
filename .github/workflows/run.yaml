@@ -43,3 +43,8 @@ jobs:
       - name: Run targets pipeline
         run: targets::tar_make()
         shell: Rscript {0}
+
+      - name: Upload Run
+        if: $(wc -l <_targets/meta/progress) -ge 2
+        run: echo uploaded
+
