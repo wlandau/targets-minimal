@@ -1,0 +1,38 @@
+on:
+  push:
+    branches:
+      - main
+
+name: run
+
+jobs:
+  run:
+    runs-on: macOS-latest
+    env:
+      GITHUB_PAT: ${{ secrets.GITHUBPAT }}
+    steps:
+      - uses: actions/checkout@v2
+      - uses: r-lib/actions/setup-r@master
+
+      - name: Identify R packages
+        run: |
+          install.packages("remotes")
+          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
+          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
+        shell: Rscript {0}
+
+      - name: Cache R packages
+        uses: actions/cache@v2
+        with:
+          path: ${{ env.R_LIBS_USER }}
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-1-
+
+      - name: Install R packages
+        run: |
+          remotes::install_deps(dependencies = TRUE, type = ifelse(tolower(Sys.info()["sysname"]) == "linux", "source", "binary"))
+        shell: Rscript {0}
+
+      - name: Run pipeline
+        run: targets::tar_make()
+        shell: Rscript {0}
