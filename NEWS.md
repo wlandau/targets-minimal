@@ -2,3 +2,4 @@
 
 * First version
 * Run pipeline on GitHub Actions.
+* Add back Rmd report.
