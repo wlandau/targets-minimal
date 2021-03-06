@@ -45,7 +45,12 @@ jobs:
         run: targets::tar_make()
         shell: Rscript {0}
 
-      - name: Upload Run
+      - name: Upload run if and only if any targets rebuilt
         if: steps.cache-store.outputs.cache-hit != 'true'
-        run: echo uploaded
-
+        run: |
+          git fetch origin runs
+          git add _targets
+          git commit -m "Run pipeline"
+          git checkout runs
+          git merge main
+          git push origin runs
