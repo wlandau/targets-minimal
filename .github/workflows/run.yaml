@@ -34,6 +34,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Cache targets data store
+        id: cache-store
         uses: actions/cache@v2
         with:
           path: _targets
@@ -45,6 +46,6 @@ jobs:
         shell: Rscript {0}
 
       - name: Upload Run
-        if: $(wc -l <_targets/meta/progress) -ge 2
+        if: steps.cache-store.outputs.cache-hit != 'true'
         run: echo uploaded
 
