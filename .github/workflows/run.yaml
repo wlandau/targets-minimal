@@ -50,6 +50,7 @@ jobs:
 
       - name: Upload run
         run: |
+          git --version
           git checkout -b temp
           git add -f _targets index.html
           git commit -m "Run pipeline"
