@@ -57,4 +57,5 @@ jobs:
           mv runs/.git .
           git add -f _targets index.html
           git commit -am "Run pipeline"
+          echo about-to-push
           git push origin runs
