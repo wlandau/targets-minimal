@@ -53,7 +53,7 @@ jobs:
           git checkout -b temp
           git add -f _targets index.html
           git commit -m "Run pipeline"
-          git fetch origin runs
+          git fetch origin runs --depth=1
           git checkout runs
           git merge temp
           git push origin runs
