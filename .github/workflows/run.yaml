@@ -48,9 +48,9 @@ jobs:
 
       - name: Upload run
         run: |
-          git fetch origin runs
           git add _targets
           git commit -m "Run pipeline"
+          git fetch origin runs
           git checkout runs
           git merge main
           git push origin runs
