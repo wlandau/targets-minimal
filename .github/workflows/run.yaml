@@ -28,6 +28,13 @@ jobs:
           key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-custom_suffix-${{ hashFiles('.github/depends.Rds') }}
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-custom_suffix-
 
+      - name: Cache targets data store
+        uses: actions/cache@v2
+        with:
+          path: _targets
+          key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta') }}
+          restore-keys: ${{ runner.os }}-targets-
+
       - name: Install R packages
         run: |
           remotes::install_deps(dependencies = TRUE)
