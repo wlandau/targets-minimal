@@ -50,11 +50,11 @@ jobs:
 
       - name: Upload run
         run: |
-          git --version
-          git checkout -b temp
+          rm -r .git
+          cd ..
+          git clone --depth=1 -b runs https://${GITHUB_PAT}@github.com/wlandau/targets-minimal.git runs
+          cp -r targets-minimal/* runs
+          cd runs
           git add -f _targets index.html
-          git commit -m "Run pipeline"
-          git fetch origin runs --depth=1
-          git checkout runs
-          git merge temp --allow-unrelated-histories
+          git commit -am "Run pipeline"
           git push origin runs
