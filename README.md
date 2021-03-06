@@ -38,7 +38,8 @@ The files in this example are organized as follows.
 ├── R/
 ├──── functions.R
 ├── data/
-└──── raw_data.csv
+├──── raw_data.csv
+└── index.Rmd
 ```
 
 | File                                                                                          | Purpose                                                                                                                                                                                                                                                                                            |
@@ -46,6 +47,11 @@ The files in this example are organized as follows.
 | [`_targets.R`](https://github.com/wlandau/targets-minimal/blob/main/_targets.R)               | The special R script that declares the [`targets`](https://github.com/wlandau/targets) pipeline. See `tar_script()` for details.                                                                                                                                                                   |
 | [`R/functions.R`](https://github.com/wlandau/targets-minimal/blob/main/R/functions.R)         | An R script with user-defined functions. Unlike [`_targets.R`](https://github.com/wlandau/targets-minimal/blob/main/_targets.R), there is nothing special about the name or location of this script. In fact, for larger projects, it is good practice to partition functions into multiple files. |
 | [`data/raw_data.csv`](https://github.com/wlandau/targets-minimal/blob/main/data/raw_data.csv) | The raw `airquality` dataset.                                                                                                                                                                                                                                                                      |
+
+[`index.Rmd`](https://github.com/wlandau/targets-minimal/blob/main/index.Rmd):
+an R Markdown report that reruns in the pipeline whenever the histogram
+of ozone changes
+([details](https://books.ropensci.org/targets/files.html#literate-programming)).
 
 ## Continuous deployment
 
@@ -60,7 +66,7 @@ caches the `_targets/` data store and runs the pipeline.
   uses: actions/cache@v2
   with:
     path: _targets
-    key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta') }}
+    key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
     restore-keys: ${{ runner.os }}-targets-
 
 - name: Run targets pipeline

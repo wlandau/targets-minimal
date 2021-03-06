@@ -38,7 +38,9 @@ jobs:
         id: cache-store
         uses: actions/cache@v2
         with:
-          path: _targets
+          path: |
+            _targets
+            index.html
           key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
           restore-keys: ${{ runner.os }}-targets-
 
@@ -48,9 +50,10 @@ jobs:
 
       - name: Upload run
         run: |
-          git add _targets
+          git checkout -b temp
+          git add -f _targets index.html
           git commit -m "Run pipeline"
           git fetch origin runs
           git checkout runs
-          git merge main
+          git merge temp
           git push origin runs

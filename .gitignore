@@ -16,5 +16,5 @@ vignettes/*.pdf
 .Renviron
 stan/model.rds
 _targets
-report.html
+index.html
 .Rproj.user
