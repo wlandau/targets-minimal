@@ -25,8 +25,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles(".github/R-version") }}-custom_suffix-${{ hashFiles(".github/depends.Rds") }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles(".github/R-version") }}-custom_suffix-
+          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-custom_suffix-${{ hashFiles('.github/depends.Rds') }}
+          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-custom_suffix-
 
       - name: Install R packages
         run: |
