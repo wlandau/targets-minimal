@@ -55,6 +55,5 @@ jobs:
           git commit -m "Run pipeline"
           git fetch origin runs --depth=1
           git checkout runs
-          echo about-to-fail
-          git merge temp
+          git merge temp --allow-unrelated-histories
           git push origin runs
