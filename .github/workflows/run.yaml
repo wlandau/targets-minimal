@@ -56,6 +56,5 @@ jobs:
           git clone --depth=1 -b runs https://${GITHUB_PAT}@github.com/wlandau/targets-minimal.git runs
           mv runs/.git .
           git add -f _targets index.html
-          git commit -am "Run pipeline"
-          echo about-to-push
+          git commit -am "Run pipeline" || true
           git push origin runs
