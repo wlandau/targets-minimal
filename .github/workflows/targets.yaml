@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - move
+      - main
 
 name: targets
 
