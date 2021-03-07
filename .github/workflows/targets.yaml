@@ -47,7 +47,10 @@ jobs:
           restore-keys: ${{ runner.os }}-targets_gha-
 
       - name: Run targets pipeline
-        run: targets::tar_make() # Optionally use a different command such as tar_make_clustermq().
+        run: |
+          ls _targets/meta/
+          ls _targets/objects/
+          targets::tar_make() # Optionally use a different command such as tar_make_clustermq().
         shell: Rscript {0}
 
       - name: Upload latest run
