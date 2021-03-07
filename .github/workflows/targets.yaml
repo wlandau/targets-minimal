@@ -9,7 +9,7 @@ jobs:
   targets:
     runs-on: macOS-latest
     env:
-      BRANCH_RUNS: latest-run # Branch to upload latest run
+      BRANCH_RUNS: targets-runs # Branch to upload current and historical runs.
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
@@ -56,6 +56,9 @@ jobs:
           echo ${{ steps.cache-targets.inputs.path }}
           git add -f _targets index.html
           git commit -am "Upload latest run"
+          echo checkout
           git checkout $BRANCH_RUNS
+          echo cherrypick
           git cherry-pick ci-test || true
+          echo push
           git push -u origin $BRANCH_RUNS
