@@ -10,3 +10,5 @@ library(ggplot2)
 library(targets)
 tar_read(hist)
 ```
+
+The [`targets` manual](https://books.ropensci.org/targets/) has a [section on literate programming in pipelines](books.ropensci.org/targets/files.html#literate-programming).
