@@ -61,13 +61,13 @@ jobs:
           echo should be current
           git branch
 
-          git fetch origin $BRANCH_RUNS && git checkout $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS
-
-          echo should be on $BRANCH_RUNS
-          git branch
+          git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
 
           echo step1
           git checkout $BRANCH_RUNS
+
+          echo should be $BRANCH_RUNS
+          git branch
 
           echo step2
           git cherry-pick run || true
