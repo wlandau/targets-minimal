@@ -25,8 +25,8 @@ jobs:
           echo ls ..
           ls ..
 
-
-
+      - name: move up
+        run: cd ..
 
       - name: Check out last run
         uses: actions/checkout@v2
@@ -43,12 +43,8 @@ jobs:
           echo ls
           ls
 
-          echo ls ..
-          ls ..
-
-          echo ls ../runs
-          ls ../runs
-
+      - name: go to run
+        run: cd targets-minimal
 
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@master
