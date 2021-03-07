@@ -57,9 +57,5 @@ jobs:
           git commit -am "Run the pipeline" || true
           git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
           git checkout $BRANCH_RUNS
-
-          echo try cherrypick
           git cherry-pick --strategy=recursive -X theirs run || true
-
-          echo push
           git push -u origin $BRANCH_RUNS

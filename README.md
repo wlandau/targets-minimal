@@ -60,8 +60,8 @@ workflow](https://github.com/wlandau/targets-minimal/actions) on every
 push to the main branch. The [cache
 action](https://github.com/actions/cache) restores the latest
 `_targets/` data store and rendered `index.html` file before each run so
-that up-to-date targets do not rebuild. The latest run with `_targets/`
-and `index.html` is overwritten in the
+that up-to-date targets do not rebuild. The latest run is committed and
+pushed to the
 [`latest-run`](https://github.com/wlandau/targets-minimal/tree/latest-run)
 branch, and the R Markdown report is deployed to
 <https://wlandau.github.io/targets-minimal/> using [GitHub
