@@ -45,7 +45,9 @@ jobs:
           restore-keys: ${{ runner.os }}-targets-
 
       - name: Run targets pipeline
-        run: targets::tar_make()
+        run: |
+          list.files()
+          targets::tar_make()
         shell: Rscript {0}
 
       - name: Do previous runs exist?
