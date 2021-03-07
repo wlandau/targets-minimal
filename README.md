@@ -55,20 +55,16 @@ of ozone changes
 
 ## Continuous deployment
 
-This pipeline runs in a [GitHub Actions
-workflow](https://github.com/wlandau/targets-minimal/actions) on every
-push to the main branch. The [cache
-action](https://github.com/actions/cache) restores the latest
-`_targets/` data store and rendered `index.html` file before each run so
-that up-to-date targets do not rebuild. The latest run is committed and
-pushed to the
-[`latest-run`](https://github.com/wlandau/targets-minimal/tree/latest-run)
+Whenever this GitHub repository is updated, the `targets` pipeline runs
+in a [GitHub Actions
+workflow](https://github.com/wlandau/targets-minimal/actions). The
+workflow pushes the results to the
+[`targets-runs`](https://github.com/wlandau/targets-minimal/tree/targets-runs)
 branch, and the R Markdown report is deployed to
 <https://wlandau.github.io/targets-minimal/> using [GitHub
-Pages](https://pages.github.com/). To activate similar continuous
-deployment in your own projects, simply copy
-[`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml)
-to your own repo. Caching on GitHub Actions has [storage
-limitations](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#usage-limits-and-eviction-policy),
-so this pattern is only appropriate for small
+Pages](https://pages.github.com/). Subsequent runs pull `_targets/` and
+`index.html` from the latest run in
+[`targets-runs`](https://github.com/wlandau/targets-minimal/tree/targets-runs),
+so up-to-date targets do not rerun. GitHub has strict storage
+limitations, so this pattern is only appropriate for small
 [`targets`](https://docs.ropensci.org/targets) pipelines.
