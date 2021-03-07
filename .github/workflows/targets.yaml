@@ -14,12 +14,14 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Upload latest run
+      - name: Check out last run
         uses: actions/checkout@v2
         with:
           ref: $BRANCH_RUNS
           fetch-depth: 1
           path: ../runs
+
+      - name: Check files
         run: |
           echo pwd
           pwd
