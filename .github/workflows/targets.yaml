@@ -52,21 +52,25 @@ jobs:
 
       - name: Upload latest run
         run: |
-          echo step1
-          git fetch $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS
-          echo step2
-          git checkout ci-test
-          echo step3
-          echo ${{ steps.cache-targets.inputs.path }}
-          echo step4
+          git branch current
+          git checkout -b run
           git add -f _targets index.html
-          echo step5
-          git commit -am "Upload latest run"
-          echo step6
-          echo checkout
-          echo step7
+          git commit -am "Run the pipeline"
+          git checkout current
+
+          echo should be current
+          git branch
+
+          git fetch $BRANCH_RUNS && git checkout $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS
+
+          echo should be on $BRANCH_RUNS
+          git branch
+
+          echo step1
           git checkout $BRANCH_RUNS
-          echo step8
+
+          echo step2
           git cherry-pick ci-test || true
-          echo step9
+
+          echo step3
           git push -u origin $BRANCH_RUNS
