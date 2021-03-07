@@ -50,7 +50,7 @@ jobs:
 
       - name: Upload latest run
         run: |
-          git checkout -b $BRANCH_LATEST_RUN
+          git checkout --orphan $BRANCH_LATEST_RUN
           git add -f *
           git commit -am "Run pipeline"
           git push -uf origin $BRANCH_LATEST_RUN
