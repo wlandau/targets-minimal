@@ -13,10 +13,6 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
-
-      - name: go to run
-        run: cd targets-minimal
-
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@master
 
