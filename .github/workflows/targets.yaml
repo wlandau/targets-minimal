@@ -77,7 +77,7 @@ jobs:
           for (dest in scan(".targets-runs/.targets-files", what = character())) {
             source <- file.path(".targets-runs", dest)
             if (!file.exists(dirname(dest))) dir.create(dirname(dest))
-            if (file.exists(source)) file.move(source, dest)
+            if (file.exists(source)) file.rename(source, dest)
           }
         shell: Rscript {0}
 
