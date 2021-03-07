@@ -35,7 +35,6 @@ jobs:
         shell: Rscript {0}
 
       - name: Cache targets data store
-        id: cache-targets
         uses: actions/cache@v2
         with:
           # List _targets/ and any custom output files below.
@@ -51,13 +50,25 @@ jobs:
         shell: Rscript {0}
 
       - name: Checkout previous run
+        id: runs
         uses: actions/checkout@v2
         with:
           ref: $BRANCH_RUNS
           fetch-depth: 1
           path: runs
+          continue-on-error: true
 
-      - name: Upload latest run
+      - name: Upload first run
+        if: steps.runs.outcome != 'success'
+        run: |
+          git checkout --orphan $BRANCH_RUNS
+          git add -f _targets index.html
+          git add *
+          git commit -am "First run"
+          git push -u origin $BRANCH_RUNS
+
+      - name: Upload subsequent run
+        if: steps.runs.outcome == 'success'
         run: |
           rm -r .git
           mv runs/.git .
@@ -70,6 +81,3 @@ jobs:
           git add -f _targets index.html
           git add *
           git commit -am "Run pipeline"
-
-
-
