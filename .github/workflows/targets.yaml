@@ -63,5 +63,5 @@ jobs:
           ls -a
           git status
           git add -f *
-          git commit -am "Run the pipeline"
+          git commit -am "Run the pipeline" || true
           git push -u origin $BRANCH_RUNS
