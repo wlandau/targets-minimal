@@ -38,7 +38,7 @@ jobs:
         id: cache-store
         uses: actions/cache@v2
         with:
-          # If your pipeline generates more custom output files, list them below.
+          # List _targets/ and any custom output files below.
           # Delete index.html if the pipeline does not render this report.
           path: |
             _targets/
