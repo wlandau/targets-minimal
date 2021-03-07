@@ -14,35 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
-      - name: Check files
-        run: |
-          echo pwd
-          pwd
-
-          echo ls
-          ls
-
-          echo ls ..
-          ls ..
-
-      - name: move up
-        run: cd ..
-
-      - name: Check out last run
-        uses: actions/checkout@v2
-        with:
-          ref: $BRANCH_RUNS
-          fetch-depth: 1
-          path: ../runs
-
-      - name: Check files
-        run: |
-          echo pwd
-          pwd
-
-          echo ls
-          ls
-
       - name: go to run
         run: cd targets-minimal
 
@@ -82,4 +53,17 @@ jobs:
       - name: Run targets pipeline
         run: targets::tar_make()
         shell: Rscript {0}
+
+      - name: Check out last run
+        uses: actions/checkout@v2
+        with:
+          ref: $BRANCH_RUNS
+          fetch-depth: 1
+          path: runs
+
+      - name: git log
+        run: |
+          cd runs
+          git branch
+          git log --oneline
 
