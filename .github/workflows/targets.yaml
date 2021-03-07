@@ -57,7 +57,7 @@ jobs:
 
       - name: Check if previous runs exist
         id: runs-exist
-        run: git fetch origin targets-runs
+        run: git ls-remote --exit-code --heads origin targets-runs
         continue-on-error: true
 
       - name: Checkout previous run
@@ -74,12 +74,8 @@ jobs:
           if (file.exists(".targets-runs/.targets-files")) {
             for (dest in scan(".targets-runs/.targets-files", what = character())) {
               source <- file.path(".targets-runs", file)
-              if (!file.exists(dirname(dest))) {
-                dir.create(dirname(dest))
-              }
-              if (file.exists(source) {
-                file.move(source, dest)
-              }
+              if (!file.exists(dirname(dest))) dir.create(dirname(dest))
+              if (file.exists(source) file.move(source, dest)
             }
           }
         shell: Rscript {0}
@@ -88,22 +84,23 @@ jobs:
         run: targets::tar_make()
         shell: Rscript {0}
 
-      - name: Upload first run
-        if: steps.runs-exist.outcome != 'success'
-        run: |
-          git checkout --orphan targets-runs
-          rm -r .gitignore .github
-          git status --short | grep "^A *" | sed --expression='s/^A *//g' >> .targets-files
-          git add * .targets-files
-          git commit -am "First run"
-          git push -u origin targets-runs
+      - name: Find files produced by the targets pipeline
+        run: git status --short | grep "^A *" | sed 's/^A *//g' >> .targets-files
 
-      - name: Upload subsequent run
+      - name: Create the runs branch if it does not already exist
+        if: steps.runs-exist.outcome != 'success'
+        run: git checkout --orphan targets-runs
+
+      - name: Switch to the runs branch if it already exists
         if: steps.runs-exist.outcome == 'success'
         run: |
-          rm -r .gitignore .git .github
+          rm -r .git
           mv .targets-runs/.git .
           rm -r .targets-runs
-          git add *
+
+      - name: Upload latest run
+        run: |
+          rm -r .gitignore .github
+          git add * .targets-files
           git commit -am "Run pipeline"
           git push origin targets-runs
