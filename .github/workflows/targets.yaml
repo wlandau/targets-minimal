@@ -88,7 +88,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Identify files that the targets pipeline produced
-        run: git ls-files -om >> .targets-files
+        run: git ls-files -om > .targets-files
 
       - name: Create the runs branch if it does not already exist
         if: steps.runs-exist.outcome != 'success'
