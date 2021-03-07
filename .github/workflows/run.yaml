@@ -39,7 +39,8 @@ jobs:
         id: cache-store
         uses: actions/cache@v2
         with:
-          path: !\.git
+          path: |
+            !\.git
           key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
           restore-keys: ${{ runner.os }}-targets-
 
