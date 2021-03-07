@@ -40,7 +40,8 @@ jobs:
         uses: actions/cache@v2
         with:
           path: |
-            !\.git
+            _targets
+            *.html
           key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
           restore-keys: ${{ runner.os }}-targets-
 
@@ -50,9 +51,12 @@ jobs:
 
       - name: Upload run
         run: |
-          git add -f *
-          git commit -m "Run pipeline"
+          git clone -b $(basename $GITHUB_REF) https://${GITHUB_PAT}@github.com/ropensci-books/targets.git ../runs
+          cd ../runs
           git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
           git checkout $BRANCH_RUNS
-          git cherry-pick $GITHUB_REF || true
+          ls -a | grep -Ev "^\.$|^..$|^\.git$" | xargs rm -rf
+          cp -r ../runs/* ./
+          git add -f *
+          git commit -am "Run pipeline"
           git push -u origin $BRANCH_RUNS
