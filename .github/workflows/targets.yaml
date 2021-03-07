@@ -82,6 +82,7 @@ jobs:
             if (!file.exists(dirname(dest))) dir.create(dirname(dest))
             if (file.exists(source)) file.rename(source, dest)
           }
+          print(warnings())
         shell: Rscript {0}
 
       - name: Run targets pipeline
