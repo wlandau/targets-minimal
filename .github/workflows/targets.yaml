@@ -57,7 +57,7 @@ jobs:
         if: steps.runs-exist.outcome != 'success'
         run: |
           git checkout --orphan targets-runs
-          rm .gitignore
+          rm -r .gitignore .github
           git add *
           git commit -am "First run"
           git push -u origin targets-runs
@@ -73,10 +73,9 @@ jobs:
       - name: Upload subsequent run
         if: steps.runs-exist.outcome == 'success'
         run: |
-          rm -r .git
+          rm -r .gitignore .git .github
           mv targets-runs/.git .
           rm -r targets-runs
-          rm .gitignore
           git add *
           git commit -am "Run pipeline"
           git push origin targets-runs
