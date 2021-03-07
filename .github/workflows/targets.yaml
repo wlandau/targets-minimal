@@ -49,7 +49,7 @@ jobs:
         run: targets::tar_make()
         shell: Rscript {0}
 
-      - name: Do runs exist?
+      - name: Do previous runs exist?
         id: runs-exist
         run: git fetch origin $BRANCH_RUNS
         continue-on-error: true
