@@ -55,30 +55,4 @@ of ozone changes
 
 ## Continuous deployment
 
-For every GitHub push on main branch, the `targets` pipeline runs on
-[GitHub
-Actions](https://github.com/wlandau/targets-minimal/actions/workflows/run.yaml).
-All you need is to define a `.github/workflows/run.yaml` file that
-caches the `_targets/` data store and runs the pipeline.
-
-``` yaml
-- name: Cache targets data store
-  uses: actions/cache@v2
-  with:
-    path: _targets
-    key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
-    restore-keys: ${{ runner.os }}-targets-
-
-- name: Run targets pipeline
-  run: targets::tar_make()
-  shell: Rscript {0}
-```
-
-Each subsequent run restores the previous cache and skips targets that
-are already up to date.
-
-![](./man/figures/uptodate.png)
-
-Read [this
-explanation](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#usage-limits-and-eviction-policy)
-for usage restrictions and limitations of GitHub Actions caches.
+TBD…
