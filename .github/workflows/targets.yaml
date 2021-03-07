@@ -58,7 +58,7 @@ jobs:
         if: steps.runs-exist.outcome != 'success'
         run: |
           git checkout --orphan $BRANCH_RUNS
-          git add -f _targets index.html
+          rm .gitignore
           git add *
           git commit -am "First run"
           git push -u origin $BRANCH_RUNS
@@ -76,12 +76,13 @@ jobs:
         run: |
           rm -r .git
           mv runs/.git .
+          rm -r runs
 
           echo git branch
           git branch
 
           echo committing...
 
-          git add -f _targets index.html
+          rm .gitignore
           git add *
           git commit -am "Run pipeline"
