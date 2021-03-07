@@ -62,10 +62,8 @@ workflow pushes the results to the
 [`targets-runs`](https://github.com/wlandau/targets-minimal/tree/targets-runs)
 branch, and the R Markdown report is deployed to
 <https://wlandau.github.io/targets-minimal/> using [GitHub
-Pages](https://pages.github.com/). Subsequent runs pull `_targets/` and
-`index.html` from the latest run in
-[`targets-runs`](https://github.com/wlandau/targets-minimal/tree/targets-runs),
-so up-to-date targets do not rerun.
+Pages](https://pages.github.com/). Subsequent runs restore the output
+files from the previous run so up-to-date targets do not rebuild.
 
 To enable continuous deployment in your own project, simply commit the
 [`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml)

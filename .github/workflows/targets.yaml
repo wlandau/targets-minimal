@@ -25,7 +25,8 @@
 on:
   push:
     branches:
-      - all-files
+      - main
+      - master
 
 name: targets
 
