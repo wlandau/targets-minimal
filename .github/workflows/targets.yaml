@@ -49,17 +49,13 @@ jobs:
         run: targets::tar_make()
         shell: Rscript {0}
 
-      - name: Checkout previous run
-        id: runs
-        uses: actions/checkout@v2
-        with:
-          ref: $BRANCH_RUNS
-          fetch-depth: 1
-          path: runs
-          continue-on-error: true
+      - name: Do runs exist?
+        id: runs-exist
+        run: git fetch origin $BRANCH_RUNS
+        continue-on-error: true
 
       - name: Upload first run
-        if: steps.runs.outcome != 'success'
+        if: steps.runs-exist.outcome != 'success'
         run: |
           git checkout --orphan $BRANCH_RUNS
           git add -f _targets index.html
@@ -67,8 +63,16 @@ jobs:
           git commit -am "First run"
           git push -u origin $BRANCH_RUNS
 
+      - name: Checkout previous run
+        if: steps.runs-exist.outcome == 'success'
+        uses: actions/checkout@v2
+        with:
+          ref: $BRANCH_RUNS
+          fetch-depth: 1
+          path: runs
+
       - name: Upload subsequent run
-        if: steps.runs.outcome == 'success'
+        if: steps.runs-exist.outcome == 'success'
         run: |
           rm -r .git
           mv runs/.git .
