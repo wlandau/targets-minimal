@@ -43,13 +43,13 @@ jobs:
           path: |
             _targets/
             index.html
-          key: ${{ runner.os }}-targets_gha-${{ hashFiles('_targets/meta/meta') }}
-          restore-keys: ${{ runner.os }}-targets_gha-
+          key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
+          restore-keys: ${{ runner.os }}-targets-
 
       - name: Run targets pipeline
         run: |
-          list.files("_targets", recursive = TRUE, full.names = TRUE)
-          writeLines(readLines("_targets/meta/meta"))
+          if (file.exists("_targets")) list.files("_targets", recursive = TRUE, full.names = TRUE)
+          if (file.exists("_targets/meta/meta")) writeLines(readLines("_targets/meta/meta"))
           targets::tar_make()
           writeLines(readLines("_targets/meta/meta"))
         shell: Rscript {0}
