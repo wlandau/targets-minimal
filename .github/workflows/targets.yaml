@@ -23,7 +23,7 @@
 on:
   push:
     branches:
-      - main
+      - all-files
 
 name: targets
 
@@ -66,13 +66,23 @@ jobs:
         with:
           ref: targets-runs
           fetch-depth: 1
-          path: targets-runs
+          path: .targets-runs
 
       - name: Restore any previous output
         if: steps.runs-exist.outcome == 'success'
         run: |
-          mv targets-runs/_targets .
-          mv targets-runs/index.html .
+          if (file.exists(".targets-runs/.targets-files")) {
+            for (dest in scan(".targets-runs/.targets-files", what = character())) {
+              source <- file.path(".targets-runs", file)
+              if (!file.exists(dirname(dest))) {
+                dir.create(dirname(dest))
+              }
+              if (file.exists(source) {
+                file.move(source, dest)
+              }
+            }
+          }
+        shell: Rscript {0}
 
       - name: Run targets pipeline
         run: targets::tar_make()
@@ -83,7 +93,8 @@ jobs:
         run: |
           git checkout --orphan targets-runs
           rm -r .gitignore .github
-          git add *
+          git status --short | grep "^A *" | sed --expression='s/^A *//g' >> .targets-files
+          git add * .targets-files
           git commit -am "First run"
           git push -u origin targets-runs
 
@@ -91,8 +102,8 @@ jobs:
         if: steps.runs-exist.outcome == 'success'
         run: |
           rm -r .gitignore .git .github
-          mv targets-runs/.git .
-          rm -r targets-runs
+          mv .targets-runs/.git .
+          rm -r .targets-runs
           git add *
           git commit -am "Run pipeline"
           git push origin targets-runs
