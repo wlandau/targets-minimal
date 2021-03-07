@@ -3,7 +3,7 @@ title: "Results"
 output: html_document
 ---
 
-One of the targets made a histogram of ozone levels from the `airquality` dataset.
+One of the targets made a histogram of ozone levels from the `airquality` dataset. Here it is.
 
 ```{r}
 library(ggplot2)
