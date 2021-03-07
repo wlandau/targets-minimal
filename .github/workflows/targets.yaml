@@ -43,8 +43,8 @@ jobs:
           path: |
             _targets
             index.html
-          key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
-          restore-keys: ${{ runner.os }}-targets-
+          key: ${{ runner.os }}-targets_gha-${{ hashFiles('_targets/meta/meta') }}
+          restore-keys: ${{ runner.os }}-targets_gha-
 
       - name: Run targets pipeline
         run: targets::tar_make() # Optionally use a different command such as tar_make_clustermq().
