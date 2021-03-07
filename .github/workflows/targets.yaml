@@ -55,22 +55,9 @@ jobs:
           git branch current
           git checkout -b run
           git add -f _targets index.html
-          git commit -am "Run the pipeline"
+          git commit -am "Run the pipeline" || true
           git checkout current
-
-          echo should be current
-          git branch
-
           git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
-
-          echo step1
           git checkout $BRANCH_RUNS
-
-          echo should be $BRANCH_RUNS
-          git branch
-
-          echo step2
           git cherry-pick run || true
-
-          echo step3
           git push -u origin $BRANCH_RUNS
