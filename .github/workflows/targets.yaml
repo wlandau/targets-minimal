@@ -14,6 +14,20 @@ jobs:
     steps:
       - uses: actions/checkout@v2
 
+      - name: Check files
+        run: |
+          echo pwd
+          pwd
+
+          echo ls
+          ls
+
+          echo ls ..
+          ls ..
+
+
+
+
       - name: Check out last run
         uses: actions/checkout@v2
         with:
