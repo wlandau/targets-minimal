@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - main
+      - ci-test
 
 name: targets
 
@@ -9,7 +9,7 @@ jobs:
   targets:
     runs-on: macOS-latest
     env:
-      BRANCH_LATEST_RUN: latest-run # Branch to upload latest run
+      BRANCH_RUNS: latest-run # Branch to upload latest run
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
@@ -35,7 +35,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Cache targets data store
-        id: cache-store
+        id: cache-targets
         uses: actions/cache@v2
         with:
           # List _targets/ and any custom output files below.
@@ -52,8 +52,10 @@ jobs:
 
       - name: Upload latest run
         run: |
-          git checkout --orphan $BRANCH_LATEST_RUN
-          git add -f *
+          git fetch $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS && git checkout ci-test
+          echo $${{ cache-targets.inputs.path }}
+          git add -f _targets index.html
           git commit -am "Upload latest run"
-          git push -uf origin $BRANCH_LATEST_RUN
-
+          git checkout $BRANCH_RUNS
+          git cherry-pick ci-test || true
+          git push -u origin $BRANCH_RUNS
