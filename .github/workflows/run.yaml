@@ -31,8 +31,7 @@ jobs:
           restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-custom_suffix-
 
       - name: Install R packages
-        run: |
-          remotes::install_deps(dependencies = TRUE)
+        run: remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
       - name: Cache targets data store
@@ -51,12 +50,4 @@ jobs:
 
       - name: Upload run
         run: |
-          git clone -b $(basename $GITHUB_REF) https://${GITHUB_PAT}@github.com/ropensci-books/targets.git ../runs
-          cd ../runs
-          git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
-          git checkout $BRANCH_RUNS
-          ls -a | grep -Ev "^\.$|^..$|^\.git$" | xargs rm -rf
-          cp -r ../runs/* ./
-          git add -f *
-          git commit -am "Run pipeline"
-          git push -u origin $BRANCH_RUNS
+        shell: Rscript {0}
