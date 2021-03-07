@@ -98,7 +98,7 @@ jobs:
 
       - name: Upload latest run
         run: |
-          rm -r .gitignore .github
+          rm -rf .gitignore .github
           for file in $(git ls-files -om)
           do
             echo $file
