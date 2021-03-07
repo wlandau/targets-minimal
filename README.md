@@ -69,8 +69,11 @@ so up-to-date targets do not rerun.
 
 To enable continuous deployment in your own project, copy the
 [`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml)
-workflow file to your GitHub repository and change `index.html` and
-`targets-runs/index.html` to whatever external output files your
-pipeline will create. Keep in mind that GitHub has strict storage
-limitations, so this pattern is only appropriate for small
-[`targets`](https://docs.ropensci.org/targets) pipelines.
+workflow file to your GitHub repository (with proper attribution
+according to the [MIT
+license](https://github.com/wlandau/targets-minimal/blob/main/LICENSE.md))
+and change `index.html` and `targets-runs/index.html` to whatever
+external output files your pipeline will create. Keep in mind that
+GitHub has strict storage limitations, so this pattern is only
+appropriate for small [`targets`](https://docs.ropensci.org/targets)
+pipelines.

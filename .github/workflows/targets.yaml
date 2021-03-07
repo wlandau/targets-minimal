@@ -1,3 +1,8 @@
+# Copyright 2021 Eli Lilly and Company, MIT License
+# You may copy and modify this file with proper attribution
+# according to MIT:
+# https://github.com/wlandau/targets-minimal/blob/main/LICENSE.md
+
 on:
   push:
     branches:
