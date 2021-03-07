@@ -33,25 +33,28 @@ jobs:
         run: remotes::install_deps(dependencies = TRUE)
         shell: Rscript {0}
 
-      - name: Cache targets data store
-        uses: actions/cache@v2
-        with:
-          # List _targets/ and any custom output files below.
-          # Omit index.html if the pipeline does not render it.
-          path: |
-            _targets
-            index.html
-          key: ${{ runner.os }}-targets_suffix-$GITHUB_SHA
-          restore-keys: ${{ runner.os }}-targets_suffix-
-
-      - name: Run targets pipeline
-        run: targets::tar_make()
-        shell: Rscript {0}
-
       - name: Check if previous runs exist
         id: runs-exist
         run: git fetch origin targets-runs
         continue-on-error: true
+
+      - name: Checkout previous run
+        if: steps.runs-exist.outcome == 'success'
+        uses: actions/checkout@v2
+        with:
+          ref: targets-runs
+          fetch-depth: 1
+          path: targets-runs
+
+      - name: Restore any previous output
+        if: steps.runs-exist.outcome == 'success'
+        run: |
+          mv targets-runs/_targets .
+          mv targets-runs/index.html .
+
+      - name: Run targets pipeline
+        run: targets::tar_make()
+        shell: Rscript {0}
 
       - name: Upload first run
         if: steps.runs-exist.outcome != 'success'
@@ -61,14 +64,6 @@ jobs:
           git add *
           git commit -am "First run"
           git push -u origin targets-runs
-
-      - name: Checkout previous run
-        if: steps.runs-exist.outcome == 'success'
-        uses: actions/checkout@v2
-        with:
-          ref: targets-runs
-          fetch-depth: 1
-          path: targets-runs
 
       - name: Upload subsequent run
         if: steps.runs-exist.outcome == 'success'
