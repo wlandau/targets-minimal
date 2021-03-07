@@ -46,8 +46,11 @@ jobs:
 
       - name: Run targets pipeline
         run: |
-          list.files()
+          digest::digest("index.Rmd", algo = "xxhash32", file = TRUE)
+          digest::digest("index.html", algo = "xxhash32", file = TRUE)
           targets::tar_make()
+          digest::digest("index.Rmd", algo = "xxhash32", file = TRUE)
+          digest::digest("index.html", algo = "xxhash32", file = TRUE)
         shell: Rscript {0}
 
       - name: Do previous runs exist?
