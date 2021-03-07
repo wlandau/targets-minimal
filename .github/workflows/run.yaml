@@ -9,6 +9,7 @@ jobs:
   run:
     runs-on: macOS-latest
     env:
+      BRANCH_LATEST_RUN: latest-run # Branch to upload latest run
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
@@ -47,8 +48,9 @@ jobs:
         run: targets::tar_make() # Optionally use another command such as tar_make_clustermq().
         shell: Rscript {0}
 
-      - name: Upload run
+      - name: Upload latest run
         run: |
-          install.packages("pkgdown")
-          pkgdown::deploy_to_branch()
-        shell: Rscript {0}
+          git checkout -b $BRANCH_LATEST_RUN
+          git add -f *
+          git commit -am "Run pipeline"
+          git push -uf origin $BRANCH_LATEST_RUN
