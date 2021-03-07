@@ -78,11 +78,9 @@ jobs:
         run: |
           for (dest in scan(".targets-runs/.targets-files", what = character())) {
             source <- file.path(".targets-runs", dest)
-            print(paste(source, dest, file.exists(source), file.exists(dest)))
             if (!file.exists(dirname(dest))) dir.create(dirname(dest), recursive = TRUE)
             if (file.exists(source)) file.rename(source, dest)
           }
-          print(warnings())
         shell: Rscript {0}
 
       - name: Run targets pipeline
@@ -106,6 +104,7 @@ jobs:
       - name: Upload latest run
         run: |
           rm -rf .gitignore .github
+          git add -f * .targets-files
           for file in $(git ls-files -om)
           do
             echo $file
