@@ -13,7 +13,7 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
-      - run: echo $BRANCH_NAME
+      - run: echo ${{ github.head_ref }}
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@master
 
@@ -55,5 +55,5 @@ jobs:
           git commit -m "Run pipeline"
           git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
           git checkout $BRANCH_RUNS
-          git cherry-pick $BRANCH_NAME || true
+          git cherry-pick ${{ github.head_ref }} || true
           git push -u origin $BRANCH_RUNS
