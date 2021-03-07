@@ -47,11 +47,7 @@ jobs:
           restore-keys: ${{ runner.os }}-targets-
 
       - name: Run targets pipeline
-        run: |
-          if (file.exists("_targets")) list.files("_targets", recursive = TRUE, full.names = TRUE)
-          if (file.exists("_targets/meta/meta")) writeLines(readLines("_targets/meta/meta"))
-          targets::tar_make()
-          writeLines(readLines("_targets/meta/meta"))
+        run: targets::tar_make()
         shell: Rscript {0}
 
       - name: Upload latest run
