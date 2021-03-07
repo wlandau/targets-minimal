@@ -71,10 +71,10 @@ jobs:
       - name: Restore output files from the previous run
         if: steps.runs-exist.outcome == 'success'
         run: |
-          for (dest in scan(".targets-runs/.targets-files", what = character())) { \
-            source <- file.path(".targets-runs", file) \
-            if (!file.exists(dirname(dest))) dir.create(dirname(dest)) \
-            if (file.exists(source)) file.move(source, dest) \
+          for (dest in scan(".targets-runs/.targets-files", what = character())) {
+            source <- file.path(".targets-runs", dest)
+            if (!file.exists(dirname(dest))) dir.create(dirname(dest))
+            if (file.exists(source)) file.move(source, dest)
           }
         shell: Rscript {0}
 
