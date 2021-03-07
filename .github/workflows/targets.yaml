@@ -59,16 +59,7 @@ jobs:
           git checkout $BRANCH_RUNS
 
           echo try cherrypick
-          git cherry-pick run --no-commit || true
-
-          echo add output
-          git add -f _targets index.html
-
-          echo add misc
-          git add *
-
-          echo commit to runs branch
-          git commit -am "Run the pipeline" || true
+          git cherry-pick --strategy=recursive -X theirs run || true
 
           echo push
           git push -u origin $BRANCH_RUNS
