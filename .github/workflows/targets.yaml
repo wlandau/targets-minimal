@@ -1,7 +1,7 @@
 on:
   push:
     branches:
-      - cherry-pick
+      - move
 
 name: targets
 
@@ -13,6 +13,27 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
+
+      - name: Upload latest run
+        uses: actions/checkout@v2
+        with:
+          ref: $BRANCH_RUNS
+          fetch-depth: 1
+          path: ../runs
+        run: |
+          echo pwd
+          pwd
+
+          echo ls
+          ls
+
+          echo ls ..
+          ls ..
+
+          echo ls ../runs
+          ls ../runs
+
+
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@master
 
@@ -50,14 +71,3 @@ jobs:
         run: targets::tar_make()
         shell: Rscript {0}
 
-      - name: Upload latest run
-        run: |
-          git checkout -b run
-          git add -f _targets index.html
-          git commit -am "Squash this commit with the previous one" || true
-          git reset --soft HEAD~2
-          git commit -m "Run the pipeline"
-          git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
-          git checkout $BRANCH_RUNS
-          git cherry-pick --strategy=recursive -X theirs run || true
-          git push -u origin $BRANCH_RUNS
