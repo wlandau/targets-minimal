@@ -9,7 +9,6 @@ jobs:
   targets:
     runs-on: macOS-latest
     env:
-      BRANCH_RUNS: targets-runs # Branch to upload current and historical runs.
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
@@ -51,23 +50,23 @@ jobs:
 
       - name: Do previous runs exist?
         id: runs-exist
-        run: git fetch origin $BRANCH_RUNS
+        run: git fetch origin targets-runs
         continue-on-error: true
 
       - name: Upload first run
         if: steps.runs-exist.outcome != 'success'
         run: |
-          git checkout --orphan $BRANCH_RUNS
+          git checkout --orphan targets-runs
           rm .gitignore
           git add *
           git commit -am "First run"
-          git push -u origin $BRANCH_RUNS
+          git push -u origin targets-runs
 
       - name: Checkout previous run
         if: steps.runs-exist.outcome == 'success'
         uses: actions/checkout@v2
         with:
-          ref: $BRANCH_RUNS
+          ref: targets-runs
           fetch-depth: 1
           path: runs
 
