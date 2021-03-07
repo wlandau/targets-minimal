@@ -48,9 +48,10 @@ jobs:
 
       - name: Run targets pipeline
         run: |
-          ls _targets/meta/
-          ls _targets/objects/
-          targets::tar_make() # Optionally use a different command such as tar_make_clustermq().
+          list.files("_targets", recursive = TRUE, full.names = TRUE)
+          writeLines(readLines("_targets/meta/meta"))
+          targets::tar_make()
+          writeLines(readLines("_targets/meta/meta"))
         shell: Rscript {0}
 
       - name: Upload latest run
