@@ -68,15 +68,13 @@ jobs:
           fetch-depth: 1
           path: .targets-runs
 
-      - name: Restore any previous output
+      - name: Restore output files from the previous run
         if: steps.runs-exist.outcome == 'success'
         run: |
-          if (file.exists(".targets-runs/.targets-files")) {
-            for (dest in scan(".targets-runs/.targets-files", what = character())) {
-              source <- file.path(".targets-runs", file)
-              if (!file.exists(dirname(dest))) dir.create(dirname(dest))
-              if (file.exists(source) file.move(source, dest)
-            }
+          for (dest in scan(".targets-runs/.targets-files", what = character())) {
+            source <- file.path(".targets-runs", file)
+            if (!file.exists(dirname(dest))) dir.create(dirname(dest))
+            if (file.exists(source)) file.move(source, dest)
           }
         shell: Rscript {0}
 
@@ -84,14 +82,14 @@ jobs:
         run: targets::tar_make()
         shell: Rscript {0}
 
-      - name: Find files produced by the targets pipeline
-        run: git status --short | grep "^A *" | sed 's/^A *//g' >> .targets-files
+      - name: Identify files that the targets pipeline produced
+        run: git ls-files -om >> .targets-files
 
       - name: Create the runs branch if it does not already exist
         if: steps.runs-exist.outcome != 'success'
         run: git checkout --orphan targets-runs
 
-      - name: Switch to the runs branch if it already exists
+      - name: Put the worktree in the runs branch if the latter already exists
         if: steps.runs-exist.outcome == 'success'
         run: |
           rm -r .git
@@ -101,6 +99,10 @@ jobs:
       - name: Upload latest run
         run: |
           rm -r .gitignore .github
-          git add * .targets-files
+          for file in $(git ls-files -om)
+          do
+            echo $file
+            git add $file
+          done
           git commit -am "Run pipeline"
           git push origin targets-runs
