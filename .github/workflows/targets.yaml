@@ -61,7 +61,7 @@ jobs:
           echo should be current
           git branch
 
-          git fetch $BRANCH_RUNS && git checkout $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS
+          git fetch origin $BRANCH_RUNS && git checkout $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS
 
           echo should be on $BRANCH_RUNS
           git branch
