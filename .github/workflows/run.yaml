@@ -53,5 +53,7 @@ jobs:
           git add -f *
           git commit -m "Run pipeline"
           git fetch origin $RUNS && git checkout $RUNS || git checkout -b $RUNS
+          echo cherrypick
           git cherry-pick main
+          echo push
           git push -u origin ${BRANCH_RUNS)
