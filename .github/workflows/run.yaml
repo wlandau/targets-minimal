@@ -9,6 +9,7 @@ jobs:
   run:
     runs-on: macOS-latest
     env:
+      BRANCH_RUNS: runs
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
@@ -38,9 +39,7 @@ jobs:
         id: cache-store
         uses: actions/cache@v2
         with:
-          path: |
-            _targets
-            index.html
+          path: !.git
           key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
           restore-keys: ${{ runner.os }}-targets-
 
@@ -50,11 +49,8 @@ jobs:
 
       - name: Upload run
         run: |
-          git config --global user.email "will.landau@gmail.com"
-          git config --global user.name "wlandau"
-          rm -r .git
-          git clone --depth=1 -b runs https://${GITHUB_PAT}@github.com/wlandau/targets-minimal.git runs
-          mv runs/.git .
-          git add -f _targets index.html
-          git commit -am "Run pipeline" || true
-          git push origin runs
+          git add -f *
+          git commit -m "Run pipeline"
+          git fetch origin $(BRANCH_RUNS) && git checkout $(BRANCH_RUNS) || git checkout -b $(BRANCH_RUNS)
+          git cherry-pick main
+          git push -u origin $(BRANCH_RUNS)
