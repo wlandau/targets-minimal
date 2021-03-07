@@ -55,14 +55,20 @@ jobs:
           git checkout -b run
           git add -f _targets index.html
           git commit -am "Run the pipeline" || true
-          git checkout run
           git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
           git checkout $BRANCH_RUNS
 
           echo try cherrypick
+          git cherry-pick run --no-commit || true
 
-          git cherry-pick run || true
+          echo add output
+          git add -f _targets index.html
 
-          echo end cherrypick
+          echo add misc
+          git add *
 
+          echo commit to runs branch
+          git commit -am "Run the pipeline" || true
+
+          echo push
           git push -u origin $BRANCH_RUNS
