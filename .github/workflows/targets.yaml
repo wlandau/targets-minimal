@@ -70,7 +70,7 @@ jobs:
           git checkout $BRANCH_RUNS
 
           echo step2
-          git cherry-pick ci-test || true
+          git cherry-pick run || true
 
           echo step3
           git push -u origin $BRANCH_RUNS
