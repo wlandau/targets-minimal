@@ -41,8 +41,8 @@ jobs:
           path: |
             _targets/
             index.html
-          key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
-          restore-keys: ${{ runner.os }}-targets-
+          key: ${{ runner.os }}-targets_suffix-${{ hashFiles('_targets/meta/meta') }}
+          restore-keys: ${{ runner.os }}-targets_suffix-
 
       - name: Run targets pipeline
         run: |
