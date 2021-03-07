@@ -52,12 +52,17 @@ jobs:
 
       - name: Upload latest run
         run: |
-          git branch current
           git checkout -b run
           git add -f _targets index.html
           git commit -am "Run the pipeline" || true
-          git checkout current
+          git checkout run
           git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
           git checkout $BRANCH_RUNS
+
+          echo try cherrypick
+
           git cherry-pick run || true
+
+          echo end cherrypick
+
           git push -u origin $BRANCH_RUNS
