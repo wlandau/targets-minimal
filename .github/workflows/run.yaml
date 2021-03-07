@@ -9,10 +9,11 @@ jobs:
   run:
     runs-on: macOS-latest
     env:
-      RUNS: targets-runs # Git branch where whole runs are pushed.
+      BRANCH_RUNS: targets-runs # Git branch where whole runs are pushed.
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
+      - run: echo $BRANCH_NAME
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@master
 
@@ -52,7 +53,7 @@ jobs:
         run: |
           git add -f *
           git commit -m "Run pipeline"
-          git fetch origin $RUNS || git branch $RUNS
-          git checkout $RUNS
-          git cherry-pick main --skip
-          git push -u origin ${BRANCH_RUNS)
+          git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
+          git checkout $BRANCH_RUNS
+          git cherry-pick $BRANCH_NAME || true
+          git push -u origin $BRANCH_RUNS
