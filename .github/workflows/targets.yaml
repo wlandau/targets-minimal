@@ -3,10 +3,10 @@ on:
     branches:
       - main
 
-name: run
+name: targets
 
 jobs:
-  run:
+  targets:
     runs-on: macOS-latest
     env:
       BRANCH_LATEST_RUN: latest-run # Branch to upload latest run
