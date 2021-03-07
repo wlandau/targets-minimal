@@ -31,7 +31,7 @@ to learn how they work.
 
 ## File structure
 
-The files in this example are organized as follows.
+These are the most important files.
 
 ``` r
 ├── _targets.R

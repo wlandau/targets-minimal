@@ -25,7 +25,7 @@ In the R console, call the [`tar_make()`](https://wlandau.github.io/targets/refe
 
 ## File structure
 
-The files in this example are organized as follows.
+These are the most important files.
 
 ```{r, eval = FALSE}
 ├── _targets.R
