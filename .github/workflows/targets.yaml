@@ -50,17 +50,26 @@ jobs:
         run: targets::tar_make()
         shell: Rscript {0}
 
-      - name: Check out last run
+      - name: Checkout previous run
         uses: actions/checkout@v2
         with:
           ref: $BRANCH_RUNS
           fetch-depth: 1
           path: runs
 
-      - name: git log
+      - name: Upload latest run
         run: |
-          ls
-          cd runs
+          rm -r .git
+          mv runs/.git .
+
+          echo git branch
           git branch
-          git log --oneline
+
+          echo committing...
+
+          git add -f _targets index.html
+          git add *
+          git commit -am "Run pipeline"
+
+
 
