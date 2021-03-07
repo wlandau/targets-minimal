@@ -9,7 +9,7 @@ jobs:
   run:
     runs-on: macOS-latest
     env:
-      RUNS: targets-runs
+      RUNS: targets-runs # Git branch where whole runs are pushed.
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
@@ -39,12 +39,13 @@ jobs:
         id: cache-store
         uses: actions/cache@v2
         with:
-          path: !.git
+          path: |
+            !.git
           key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
           restore-keys: ${{ runner.os }}-targets-
 
       - name: Run targets pipeline
-        run: targets::tar_make()
+        run: targets::tar_make() # Optionally use another command such as tar_make_clustermq().
         shell: Rscript {0}
 
       - name: Upload run
