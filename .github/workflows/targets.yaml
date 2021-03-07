@@ -37,6 +37,9 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@master
 
+      - name: Install other system dependencies
+        run: brew install zeromq
+
       - name: Identify R packages
         run: |
           install.packages("remotes")
