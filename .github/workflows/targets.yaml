@@ -45,12 +45,7 @@ jobs:
           restore-keys: ${{ runner.os }}-targets_suffix-
 
       - name: Run targets pipeline
-        run: |
-          digest::digest("index.Rmd", algo = "xxhash32", file = TRUE)
-          if ( file.exists("index.html")) digest::digest("index.html", algo = "xxhash32", file = TRUE)
-          targets::tar_make()
-          digest::digest("index.Rmd", algo = "xxhash32", file = TRUE)
-          digest::digest("index.html", algo = "xxhash32", file = TRUE)
+        run: targets::tar_make()
         shell: Rscript {0}
 
       - name: Check if previous runs exist
