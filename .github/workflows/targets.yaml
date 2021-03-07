@@ -54,19 +54,10 @@ jobs:
         run: |
           git checkout -b run
           git add -f _targets index.html
-
-          echo git status
-          git status
-
-          echo README source
-          cat README.md
-
-          git commit -am "Run the pipeline" || true
+          git commit -am "Squash this commit with the previous one" || true
+          git reset --soft HEAD~2
+          git commit -m "Run the pipeline"
           git fetch origin $BRANCH_RUNS || git branch $BRANCH_RUNS
           git checkout $BRANCH_RUNS
           git cherry-pick --strategy=recursive -X theirs run || true
-
-           echo README source 2
-          cat README.md
-
           git push -u origin $BRANCH_RUNS
