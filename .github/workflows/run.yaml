@@ -9,7 +9,6 @@ jobs:
   run:
     runs-on: macOS-latest
     env:
-      BRANCH_RUNS: targets-runs # Git branch where whole runs are pushed.
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
@@ -50,4 +49,6 @@ jobs:
 
       - name: Upload run
         run: |
+          install.packages("pkgdown")
+          pkgdown::deploy_to_branch()
         shell: Rscript {0}
