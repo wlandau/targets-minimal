@@ -5,7 +5,7 @@
 Cloud](https://img.shields.io/badge/RStudio-Cloud-blue)](https://rstudio.cloud/project/1430691)
 
 This repository is an example data analysis workflow with
-[`targets`](https://github.com/wlandau/targets). The pipeline reads the
+[`targets`](https://docs.ropensci.org/targets). The pipeline reads the
 data from a file, preprocesses it, visualizes it, and fits a regression
 model.
 
@@ -44,7 +44,7 @@ The files in this example are organized as follows.
 
 | File                                                                                          | Purpose                                                                                                                                                                                                                                                                                            |
 | --------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| [`_targets.R`](https://github.com/wlandau/targets-minimal/blob/main/_targets.R)               | The special R script that declares the [`targets`](https://github.com/wlandau/targets) pipeline. See `tar_script()` for details.                                                                                                                                                                   |
+| [`_targets.R`](https://github.com/wlandau/targets-minimal/blob/main/_targets.R)               | The special R script that declares the [`targets`](https://docs.ropensci.org/targets) pipeline. See `tar_script()` for details.                                                                                                                                                                    |
 | [`R/functions.R`](https://github.com/wlandau/targets-minimal/blob/main/R/functions.R)         | An R script with user-defined functions. Unlike [`_targets.R`](https://github.com/wlandau/targets-minimal/blob/main/_targets.R), there is nothing special about the name or location of this script. In fact, for larger projects, it is good practice to partition functions into multiple files. |
 | [`data/raw_data.csv`](https://github.com/wlandau/targets-minimal/blob/main/data/raw_data.csv) | The raw `airquality` dataset.                                                                                                                                                                                                                                                                      |
 
@@ -68,5 +68,7 @@ branch, and the R Markdown report is deployed to
 Pages](https://pages.github.com/). To activate similar continuous
 deployment in your own projects, simply copy
 [`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml)
-to your own repo. Please read about the [storage limitations described
-here](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#usage-limits-and-eviction-policy).
+to your own repo. Caching on GitHub Actions has [storage
+limitations](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#usage-limits-and-eviction-policy),
+so this pattern is only appropriate for small
+[`targets`](https://docs.ropensci.org/targets) pipelines.

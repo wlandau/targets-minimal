@@ -13,7 +13,7 @@ knitr::opts_chunk$set(
 
 [![Launch RStudio Cloud](https://img.shields.io/badge/RStudio-Cloud-blue)](https://rstudio.cloud/project/1430691)
 
-This repository is an example data analysis workflow with [`targets`](https://github.com/wlandau/targets). The pipeline reads the data from a file, preprocesses it, visualizes it, and fits a regression model. 
+This repository is an example data analysis workflow with [`targets`](https://docs.ropensci.org/targets). The pipeline reads the data from a file, preprocesses it, visualizes it, and fits a regression model. 
 
 ## How to access
 
@@ -38,11 +38,11 @@ The files in this example are organized as follows.
 
 File | Purpose
 ---|---
-[`_targets.R`](https://github.com/wlandau/targets-minimal/blob/main/_targets.R) | The special R script that declares the [`targets`](https://github.com/wlandau/targets) pipeline. See `tar_script()` for details.
+[`_targets.R`](https://github.com/wlandau/targets-minimal/blob/main/_targets.R) | The special R script that declares the [`targets`](https://docs.ropensci.org/targets) pipeline. See `tar_script()` for details.
 [`R/functions.R`](https://github.com/wlandau/targets-minimal/blob/main/R/functions.R) | An R script with user-defined functions. Unlike [`_targets.R`](https://github.com/wlandau/targets-minimal/blob/main/_targets.R), there is nothing special about the name or location of this script. In fact, for larger projects, it is good practice to partition functions into multiple files.
 [`data/raw_data.csv`](https://github.com/wlandau/targets-minimal/blob/main/data/raw_data.csv) | The raw `airquality` dataset.
 [`index.Rmd`](https://github.com/wlandau/targets-minimal/blob/main/index.Rmd): an R Markdown report that reruns in the pipeline whenever the histogram of ozone changes ([details](https://books.ropensci.org/targets/files.html#literate-programming)).
 
 ## Continuous deployment
 
-This pipeline runs in a [GitHub Actions workflow](https://github.com/wlandau/targets-minimal/actions) on every push to the main branch. The [cache action](https://github.com/actions/cache) restores the latest `_targets/` data store and rendered `index.html` file before each run so that up-to-date targets do not rebuild. The latest run is committed and pushed to the [`latest-run`](https://github.com/wlandau/targets-minimal/tree/latest-run) branch, and the R Markdown report is deployed to <https://wlandau.github.io/targets-minimal/> using [GitHub Pages](https://pages.github.com/). To activate similar continuous deployment in your own projects, simply copy [`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml) to your own repo. Please read about the [storage limitations described here](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#usage-limits-and-eviction-policy).
+This pipeline runs in a [GitHub Actions workflow](https://github.com/wlandau/targets-minimal/actions) on every push to the main branch. The [cache action](https://github.com/actions/cache) restores the latest `_targets/` data store and rendered `index.html` file before each run so that up-to-date targets do not rebuild. The latest run is committed and pushed to the [`latest-run`](https://github.com/wlandau/targets-minimal/tree/latest-run) branch, and the R Markdown report is deployed to <https://wlandau.github.io/targets-minimal/> using [GitHub Pages](https://pages.github.com/). To activate similar continuous deployment in your own projects, simply copy [`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml) to your own repo. Caching on GitHub Actions has [storage limitations](https://docs.github.com/en/actions/guides/caching-dependencies-to-speed-up-workflows#usage-limits-and-eviction-policy), so this pattern is only appropriate for small [`targets`](https://docs.ropensci.org/targets) pipelines.
