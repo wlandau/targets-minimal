@@ -9,7 +9,7 @@ jobs:
   run:
     runs-on: macOS-latest
     env:
-      BRANCH_RUNS: runs
+      RUNS: targets-runs
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
@@ -51,6 +51,6 @@ jobs:
         run: |
           git add -f *
           git commit -m "Run pipeline"
-          git fetch origin $(BRANCH_RUNS) && git checkout $(BRANCH_RUNS) || git checkout -b $(BRANCH_RUNS)
+          git fetch origin $RUNS && git checkout $RUNS || git checkout -b $RUNS
           git cherry-pick main
-          git push -u origin $(BRANCH_RUNS)
+          git push -u origin ${BRANCH_RUNS)
