@@ -12,6 +12,10 @@ jobs:
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
+
+      - name: echo key
+        run: echo ${{ runner.os }}-targets_suffix-$GITHUB_SHA
+
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@master
 
@@ -41,7 +45,7 @@ jobs:
           path: |
             _targets/
             index.html
-          key: ${{ runner.os }}-targets_suffix-${{ hashFiles('_targets/meta/meta') }}
+          key: ${{ runner.os }}-targets_suffix-$GITHUB_SHA
           restore-keys: ${{ runner.os }}-targets_suffix-
 
       - name: Run targets pipeline
