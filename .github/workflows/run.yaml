@@ -9,7 +9,7 @@ jobs:
   run:
     runs-on: macOS-latest
     env:
-      BRANCH_LATEST_RUN: latest-run # Branch to upload latest run
+      BRANCH_RUNS: targets-runs # Branch to upload latest run
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
@@ -40,7 +40,7 @@ jobs:
         with:
           path: |
             _targets
-            *.html
+            index.html
           key: ${{ runner.os }}-targets-${{ hashFiles('_targets/meta/meta') }}
           restore-keys: ${{ runner.os }}-targets-
 
@@ -50,9 +50,12 @@ jobs:
 
       - name: Upload latest run
         run: |
-          git stash -u
-          git fetch origin $BRANCH_LATEST_RUN || git checkout --orphan $BRANCH_LATEST_RUN
-          git stash pop
+          mkdir ../runs
+          mv .git ../runs
+          RUN=$(basename $(pwd))
+          cd ../runs
+          git fetch --depth=1 origin $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS
+          mv -f ../${RUN}/{.,}* ./
           git add -f *
           git commit -am "Run pipeline"
-          git push -u origin $BRANCH_LATEST_RUN
+          git push -u origin $BRANCH_RUNS
