@@ -38,6 +38,8 @@ jobs:
         id: cache-store
         uses: actions/cache@v2
         with:
+          # If your pipeline generates more custom output files, write them below.
+          # Delete index.html if the pipeline will not create it.
           path: |
             _targets
             index.html
@@ -45,7 +47,7 @@ jobs:
           restore-keys: ${{ runner.os }}-targets-
 
       - name: Run targets pipeline
-        run: targets::tar_make() # Optionally use another command such as tar_make_clustermq().
+        run: targets::tar_make() # Optionally use a different command such as tar_make_clustermq().
         shell: Rscript {0}
 
       - name: Upload latest run
