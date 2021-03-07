@@ -37,7 +37,7 @@ jobs:
         uses: actions/cache@v2
         with:
           # List _targets/ and any custom output files below.
-          # Delete index.html if the pipeline does not render this report.
+          # Delete index.html if the pipeline does not render it.
           path: |
             _targets/
             index.html
