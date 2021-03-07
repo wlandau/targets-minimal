@@ -56,7 +56,7 @@ jobs:
           mv .git ../runs
           RUN=$(basename $(pwd))
           cd ../runs
-          git fetch --depth=1 origin $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS
+          git fetch --depth=1 origin $BRANCH_RUNS && git checkout $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS
           find ../$RUN -maxdepth 1 -mindepth 1 -name '*' -exec mv -n {} . \;
           git add -f *
           git commit -am "Run pipeline"
