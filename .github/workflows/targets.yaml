@@ -1,6 +1,8 @@
 # MIT License
 # Copyright (c) 2021 Eli Lilly and Company
 # Author: William Michael Landau (will.landau at gmail)
+# Written with help from https://github.com/r-lib/actions/blob/master/examples/check-full.yaml by Jim Hester
+# (in the public domain; CC0 1.0 Universal)
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
