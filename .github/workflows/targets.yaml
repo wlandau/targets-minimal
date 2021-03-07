@@ -39,7 +39,7 @@ jobs:
           # List _targets/ and any custom output files below.
           # Omit index.html if the pipeline does not render it.
           path: |
-            _targets/
+            _targets
             index.html
           key: ${{ runner.os }}-targets_suffix-$GITHUB_SHA
           restore-keys: ${{ runner.os }}-targets_suffix-
