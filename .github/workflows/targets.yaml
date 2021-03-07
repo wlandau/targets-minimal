@@ -53,7 +53,7 @@ jobs:
       - name: Upload latest run
         run: |
           git fetch $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS && git checkout ci-test
-          echo $${{ cache-targets.inputs.path }}
+          echo ${{ cache-targets.inputs.path }}
           git add -f _targets index.html
           git commit -am "Upload latest run"
           git checkout $BRANCH_RUNS
