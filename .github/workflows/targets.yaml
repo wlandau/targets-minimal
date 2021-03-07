@@ -41,7 +41,7 @@ jobs:
           # If your pipeline generates more custom output files, list them below.
           # Delete index.html if the pipeline will not create it.
           path: |
-            _targets
+            _targets/
             index.html
           key: ${{ runner.os }}-targets_gha-${{ hashFiles('_targets/meta/meta') }}
           restore-keys: ${{ runner.os }}-targets_gha-
