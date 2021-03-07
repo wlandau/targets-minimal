@@ -9,7 +9,7 @@ jobs:
   run:
     runs-on: macOS-latest
     env:
-      BRANCH_RUNS: targets-runs # Branch to upload latest run
+      BRANCH_LATEST_RUN: latest-run # Branch to upload latest run
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
       - uses: actions/checkout@v2
@@ -52,12 +52,8 @@ jobs:
 
       - name: Upload latest run
         run: |
-          mkdir ../runs
-          mv .git ../runs
-          RUN=$(basename $(pwd))
-          cd ../runs
-          git fetch --depth=1 origin $BRANCH_RUNS && git checkout $BRANCH_RUNS || git checkout --orphan $BRANCH_RUNS
-          find ../$RUN -maxdepth 1 -mindepth 1 -name '*' -exec mv -n {} . \;
+          git checkout --orphan $BRANCH_LATEST_RUN
           git add -f *
-          git commit -am "Run the pipeline" || true
-          git push -u origin $BRANCH_RUNS
+          git commit -am "Upload latest run"
+          git push -uf origin $BRANCH_LATEST_RUN
+
