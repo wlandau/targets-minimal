@@ -403,27 +403,17 @@
     },
     "tarchetypes": {
       "Package": "tarchetypes",
-      "Version": "0.1.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "tarchetypes",
-      "RemoteUsername": "ropensci",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "cbce5fb932868f7bf475959ecd767845f622a89c",
-      "Hash": "5ccbd1d3c5087730f76f21b12ccf042c"
+      "Version": "0.1.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "1270e517deebe89a4140ed2445e82bea"
     },
     "targets": {
       "Package": "targets",
-      "Version": "0.2.0.9000",
-      "Source": "GitHub",
-      "RemoteType": "github",
-      "RemoteHost": "api.github.com",
-      "RemoteRepo": "targets",
-      "RemoteUsername": "ropensci",
-      "RemoteRef": "HEAD",
-      "RemoteSha": "bf178dfaacbe914aa1e4aaabaa91550e80732da9",
-      "Hash": "11854c783f4fcd527cbe29c8700ade54"
+      "Version": "0.2.0",
+      "Source": "Repository",
+      "Repository": "CRAN",
+      "Hash": "c893326d7a0f169964e16c94edfba375"
     },
     "tibble": {
       "Package": "tibble",
