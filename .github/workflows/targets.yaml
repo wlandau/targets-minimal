@@ -47,11 +47,10 @@ jobs:
 
       - name: Install Linux system dependencies
         if: runner.os == 'Linux'
-        run: >
-          sudo apt-get install
-            libcurl4-openssl-dev
-            libssl-dev
-            libzmq3-dev
+        run: |
+          sudo apt-get install libcurl4-openssl-dev
+          sudo apt-get install libssl-dev
+          sudo apt-get install libzmq3-dev
 
       - name: Cache renv packages
         uses: actions/cache@v2
