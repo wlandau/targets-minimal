@@ -37,6 +37,7 @@ jobs:
     runs-on: macOS-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
+      RENV_PATHS_ROOT: ~/.local/share/renv
     steps:
       - uses: actions/checkout@v2
       - uses: r-lib/actions/setup-r@master
@@ -53,68 +54,16 @@ jobs:
           sudo apt-get install libssl-dev
           sudo apt-get install libzmq3-dev
 
-      - name: Cache renv packages
-        uses: actions/cache@v2
+      - name: Cache packages
+        uses: actions/cache@v1
         with:
-          path: $HOME/.local/share/renv
-          key: renv-${{ runner.os }}-${{ hashFiles('renv.lock') }}
-          restore-keys: renv-${{ runner.os }}-
+          path: ${{ env.RENV_PATHS_ROOT }}
+          key: ${{ runner.os }}-renv-${{ hashFiles('**/renv.lock') }}
+          restore-keys: ${{ runner.os }}-renv-
 
-      - name: Restore R packages
-        run: renv::restore()
+      - name: Restore packages
         shell: Rscript {0}
-
-      - name: Check if previous runs exist
-        id: runs-exist
-        run: git ls-remote --exit-code --heads origin targets-runs
-        continue-on-error: true
-
-      - name: Checkout previous run
-        if: steps.runs-exist.outcome == 'success'
-        uses: actions/checkout@v2
-        with:
-          ref: targets-runs
-          fetch-depth: 1
-          path: .targets-runs
-
-      - name: Restore output files from the previous run
-        if: steps.runs-exist.outcome == 'success'
         run: |
-          for (dest in scan(".targets-runs/.targets-files", what = character())) {
-            source <- file.path(".targets-runs", dest)
-            if (!file.exists(dirname(dest))) dir.create(dirname(dest), recursive = TRUE)
-            if (file.exists(source)) file.rename(source, dest)
-          }
-        shell: Rscript {0}
+          if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
+          renv::restore()
 
-      - name: Run targets pipeline
-        run: targets::tar_make()
-        shell: Rscript {0}
-
-      - name: Identify files that the targets pipeline produced
-        run: git ls-files -om > .targets-files
-
-      - name: Create the runs branch if it does not already exist
-        if: steps.runs-exist.outcome != 'success'
-        run: git checkout --orphan targets-runs
-
-      - name: Put the worktree in the runs branch if the latter already exists
-        if: steps.runs-exist.outcome == 'success'
-        run: |
-          rm -r .git
-          mv .targets-runs/.git .
-          rm -r .targets-runs
-
-      - name: Upload latest run
-        run: |
-          git config --local user.name "GitHub Actions"
-          git config --local user.email "actions@github.com"
-          rm -rf .gitignore .github
-          git add -f * .targets-files
-          for file in $(git ls-files -om)
-          do
-            echo $file
-            git add $file
-          done
-          git commit -am "Run pipeline"
-          git push origin targets-runs
