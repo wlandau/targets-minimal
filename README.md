@@ -77,8 +77,8 @@ enable continuous deployment in your own project:
     repository’s website.
 3.  Set up your project with [`renv`](https://rstudio.github.io/renv/)
     ([details here](https://rstudio.github.io/renv/articles/ci.html)).
-      - Call `targets::tar_renv()` to write a `_packages.R` file to
-        expose hidden dependencies.
+      - Call `targets::tar_renv(extras = character(0))` to write a
+        `_packages.R` file to expose hidden dependencies.
       - Call `renv::init()` to initialize the package library or
         `renv::snapshot()` to update it.
       - At minimum, commit files `.Rprofile`, `renv.lock`, and

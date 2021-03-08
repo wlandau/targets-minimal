@@ -416,9 +416,14 @@
     "targets": {
       "Package": "targets",
       "Version": "0.2.0.9000",
-      "Source": "Repository",
-      "Repository": "CRAN",
-      "Hash": "43cf8b0f95073711516afab446c836f1"
+      "Source": "GitHub",
+      "RemoteType": "github",
+      "RemoteHost": "api.github.com",
+      "RemoteRepo": "targets",
+      "RemoteUsername": "ropensci",
+      "RemoteRef": "HEAD",
+      "RemoteSha": "bf178dfaacbe914aa1e4aaabaa91550e80732da9",
+      "Hash": "11854c783f4fcd527cbe29c8700ade54"
     },
     "tibble": {
       "Package": "tibble",
