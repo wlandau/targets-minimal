@@ -1,8 +1,9 @@
 # MIT License
 # Copyright (c) 2021 Eli Lilly and Company
 # Author: William Michael Landau (will.landau at gmail)
-# Written with help from https://github.com/r-lib/actions/blob/master/examples/check-full.yaml by Jim Hester
-# (in the public domain; CC0 1.0 Universal).
+# Written with help from public domain (CC0 1.0 Universal) workflow files by Jim Hester:
+# * https://github.com/r-lib/actions/blob/master/examples/check-full.yaml
+# * https://github.com/r-lib/actions/blob/master/examples/blogdown.yaml
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -40,26 +41,29 @@ jobs:
       - uses: r-lib/actions/setup-r@master
       - uses: r-lib/actions/setup-pandoc@master
 
-      - name: Install other system dependencies
-        run: sudo apt-get install libcurl4-openssl-dev libssl-dev libzmq3-dev
+      - name: Install Mac system dependencies
+        if: runner.os == 'macOS'
+        run: brew install zeromq
 
-      - name: Identify R packages
-        run: |
-          install.packages("remotes")
-          saveRDS(remotes::dev_package_deps(dependencies = TRUE), ".github/depends.Rds", version = 2)
-          writeLines(sprintf("R-%i.%i", getRversion()$major, getRversion()$minor), ".github/R-version")
-        shell: Rscript {0}
+      - name: Install Linux system dependencies
+        if: runner.os == 'Linux'
+        run: >
+          sudo apt-get install
+            libcurl4-openssl-dev
+            libssl-dev
+            libzmq3-dev
 
-      - name: Cache R packages
+      - name: Cache renv packages
         uses: actions/cache@v2
         with:
-          path: ${{ env.R_LIBS_USER }}
-          key: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-custom_suffix-${{ hashFiles('.github/depends.Rds') }}
-          restore-keys: ${{ runner.os }}-${{ hashFiles('.github/R-version') }}-custom_suffix-
+          path: $HOME/.local/share/renv
+          key: r-${{ hashFiles('renv.lock') }}
+          restore-keys: r-
 
       - name: Install R packages
-        run: remotes::install_deps(dependencies = TRUE)
-        shell: Rscript {0}
+        run: |
+          R -e 'install.packages("renv")'
+          R -e 'if (file.exists("renv.lock")) renv::restore()'
 
       - name: Check if previous runs exist
         id: runs-exist
@@ -104,6 +108,8 @@ jobs:
 
       - name: Upload latest run
         run: |
+          git config --local user.name "GitHub Actions"
+          git config --local user.email "actions@github.com"
           rm -rf .gitignore .github
           git add -f * .targets-files
           for file in $(git ls-files -om)

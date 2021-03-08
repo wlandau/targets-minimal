@@ -31,7 +31,7 @@ to learn how they work.
 
 ## File structure
 
-These are the most important files.
+The most important files are:
 
 ``` r
 ├── _targets.R
@@ -63,11 +63,23 @@ workflow pushes the results to the
 branch, and the R Markdown report is deployed to
 <https://wlandau.github.io/targets-minimal/> using [GitHub
 Pages](https://pages.github.com/). Subsequent runs restore the output
-files from the previous run so up-to-date targets do not rebuild.
+files from the previous run so up-to-date targets do not rebuild. To
+enable continuous deployment in your own project:
 
-To enable continuous deployment in your own project, simply commit the
-[`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml)
-workflow file to your GitHub repository and ensure Actions are enabled.
-Keep in mind that GitHub has strict storage limitations, so this pattern
-is only appropriate for small
-[`targets`](https://docs.ropensci.org/targets) pipelines.
+1.  Set up your project with [`renv`](https://rstudio.github.io/renv/).
+      - Call `targets::tar_renv()` to write a `_packages.R` file to
+        expose hidden dependencies.
+      - Call `renv::init()` to initialize the package library.
+      - At minimum, commit files `renv.lock` and `renv/activate.R` to
+        your Git repository.
+2.  Commit the
+    [`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml)
+    workflow file to your Git repository.
+3.  Ensure GitHub Actions are enabled in the Settings tab of your GitHub
+    repository’s website.
+4.  GitHub has strict storage and compute limitations, so this pattern
+    is only appropriate for small
+    [`targets`](https://docs.ropensci.org/targets) pipelines. Before you
+    push, ensure your resource requirements are minimal. For storage,
+    you may choose the AWS-backed storage formats (e.g. `tar_target(...,
+    format = "aws_qs")`) to reduce the burden.
