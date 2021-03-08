@@ -32,7 +32,7 @@ name: targets
 
 jobs:
   targets:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     env:
       GITHUB_PAT: ${{ secrets.GITHUBPAT }}
     steps:
@@ -41,7 +41,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
 
       - name: Install other system dependencies
-        run: brew install zeromq
+        run: sudo apt-get install libzmq3-dev
 
       - name: Identify R packages
         run: |
