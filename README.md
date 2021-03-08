@@ -79,10 +79,9 @@ enable continuous deployment in your own project:
     ([details here](https://rstudio.github.io/renv/articles/ci.html)).
       - Call `targets::tar_renv(extras = character(0))` to write a
         `_packages.R` file to expose hidden dependencies.
-      - Call `renv::init()` to initialize the package library or
-        `renv::snapshot()` to update it.
-      - At minimum, commit files `.Rprofile`, `renv.lock`, and
-        `renv/activate.R` to your Git repository.
+      - Call `renv::init()` to initialize the `renv` lockfile
+        `renv.lock` or `renv::snapshot()` to update it.
+      - Commit `renv.lock` to your Git repository.
 4.  Write the
     [`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml)
     workflow file using `targets::tar_github_actions()` and commit this
