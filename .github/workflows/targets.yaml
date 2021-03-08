@@ -28,6 +28,7 @@ on:
     branches:
       - main
       - master
+      - renv
 
 name: targets
 
