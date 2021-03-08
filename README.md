@@ -69,20 +69,21 @@ Pages](https://pages.github.com/). Subsequent runs restore the output
 files from the previous run so up-to-date targets do not rebuild. To
 enable continuous deployment in your own project:
 
-1.  Set up your project with [`renv`](https://rstudio.github.io/renv/).
+1.  Ensure your project stays within the storage and compute limitations
+    of GitHub. For storage, you may choose the AWS-backed storage
+    formats (e.g. `tar_target(..., format = "aws_qs")`) to reduce the
+    burden of any large datasets.
+2.  Ensure GitHub Actions are enabled in the Settings tab of your GitHub
+    repository’s website.
+3.  Set up your project with [`renv`](https://rstudio.github.io/renv/)
+    ([details here](https://rstudio.github.io/renv/articles/ci.html)).
       - Call `targets::tar_renv()` to write a `_packages.R` file to
         expose hidden dependencies.
-      - Call `renv::init()` to initialize the package library.
+      - Call `renv::init()` to initialize the package library or
+        `renv::snapshot()` to update it.
       - At minimum, commit files `.Rprofile`, `renv.lock`, and
         `renv/activate.R` to your Git repository.
-2.  Commit the
+4.  Commit the
     [`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml)
     workflow file to your Git repository.
-3.  Ensure GitHub Actions are enabled in the Settings tab of your GitHub
-    repository’s website.
-4.  GitHub has strict storage and compute limitations, so this pattern
-    is only appropriate for small
-    [`targets`](https://docs.ropensci.org/targets) pipelines. Before you
-    push, ensure your resource requirements are minimal. For storage,
-    you may choose the AWS-backed storage formats (e.g. `tar_target(...,
-    format = "aws_qs")`) to reduce the burden.
+    `targets::tar_github_actions()` writes this file automatically.

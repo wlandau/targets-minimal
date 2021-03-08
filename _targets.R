@@ -2,7 +2,7 @@ library(targets)
 library(tarchetypes)
 source("R/functions.R")
 options(tidyverse.quiet = TRUE)
-tar_option_set(packages = c("biglm", "tidyverse"))
+tar_option_set(packages = c("biglm", "dplyr", "ggplot2", "readr", "tidyr"))
 list(
   tar_target(
     raw_data_file,
