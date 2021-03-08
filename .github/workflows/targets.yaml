@@ -95,7 +95,7 @@ jobs:
         shell: Rscript {0}
 
       - name: Identify files that the targets pipeline produced
-        run: git ls-files -om > .targets-files
+        run: git ls-files -mo --exclude=renv > .targets-files
 
       - name: Create the runs branch if it does not already exist
         if: steps.runs-exist.outcome != 'success'
@@ -112,11 +112,11 @@ jobs:
         run: |
           git config --local user.name "GitHub Actions"
           git config --local user.email "actions@github.com"
-          rm -rf .gitignore .github
-          git add -f * .targets-files
-          for file in $(git ls-files -om)
+          rm -rf .github
+          echo renv > .gitignore
+          git add *
+          for file in $(git ls-files -mo --exclude=renv)
           do
-            echo $file
             git add $file
           done
           git commit -am "Run pipeline"
