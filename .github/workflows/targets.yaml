@@ -67,3 +67,10 @@ jobs:
           if (!requireNamespace("renv", quietly = TRUE)) install.packages("renv")
           renv::restore()
 
+
+      - name: test pkgs
+        shell: Rscript {0}
+        run: |
+          library(ggplot2)
+          library(targets)
+
