@@ -41,7 +41,7 @@ jobs:
       - uses: r-lib/actions/setup-pandoc@master
 
       - name: Install other system dependencies
-        run: sudo apt-get install libzmq3-dev
+        run: sudo apt-get install libcurl4-openssl-dev libssl-dev libzmq3-dev
 
       - name: Identify R packages
         run: |
