@@ -1,6 +1,11 @@
 # MIT License
 
+MIT License
 Copyright (c) 2021 Eli Lilly and Company
+Author: William Michael Landau (will.landau at gmail)
+Written with help from public domain (CC0 1.0 Universal) workflow files by Jim Hester:
+* https://github.com/r-lib/actions/blob/master/examples/check-full.yaml
+* https://github.com/r-lib/actions/blob/master/examples/blogdown.yaml
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
