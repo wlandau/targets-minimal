@@ -83,7 +83,11 @@ enable continuous deployment in your own project:
         `renv::snapshot()` to update it.
       - At minimum, commit files `.Rprofile`, `renv.lock`, and
         `renv/activate.R` to your Git repository.
-4.  Commit the
+4.  Write the
     [`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml)
-    workflow file to your Git repository.
-    `targets::tar_github_actions()` writes this file automatically.
+    workflow file using `targets::tar_github_actions()` and commit this
+    file to Git.
+5.  Push to GitHub. A GitHub Actions workflow should run the pipeline
+    and upload the results to the `targets-runs` branch of your
+    repository. Subsequent runs should add new commits but not
+    necessarily rerun targets.
