@@ -21,7 +21,10 @@ You can try out this example project as long as you have a browser and an intern
 
 ## How to run
 
-In the R console, call the [`tar_make()`](https://wlandau.github.io/targets/reference/tar_make.html) function to run the pipeline. Then, call `tar_read(hist)` to retrieve the histogram. Experiment with [other functions](https://wlandau.github.io/targets/reference/index.html) such as [`tar_visnetwork()`](https://wlandau.github.io/targets/reference/tar_visnetwork.html) to learn how they work.
+1. Open the R console and call `renv::restore()` to install the required R packages.
+2. call the [`tar_make()`](https://wlandau.github.io/targets/reference/tar_make.html) function to run the pipeline.
+3. Then, call `tar_read(hist)` to retrieve the histogram. 
+4. Experiment with [other functions](https://wlandau.github.io/targets/reference/index.html) such as [`tar_visnetwork()`](https://wlandau.github.io/targets/reference/tar_visnetwork.html) to learn how they work.
 
 ## File structure
 
@@ -43,7 +46,7 @@ File | Purpose
 [`data/raw_data.csv`](https://github.com/wlandau/targets-minimal/blob/main/data/raw_data.csv) | The raw `airquality` dataset.
 [`index.Rmd`](https://github.com/wlandau/targets-minimal/blob/main/index.Rmd): an R Markdown report that reruns in the pipeline whenever the histogram of ozone changes ([details](https://books.ropensci.org/targets/files.html#literate-programming)).
 
-## Continuous deployment
+## Continuous deployment (advanced)
 
 Whenever this GitHub repository is updated, the `targets` pipeline runs in a [GitHub Actions workflow](https://github.com/wlandau/targets-minimal/actions). The workflow pushes the results to the [`targets-runs`](https://github.com/wlandau/targets-minimal/tree/targets-runs) branch, and the R Markdown report is deployed to <https://wlandau.github.io/targets-minimal/> using [GitHub Pages](https://pages.github.com/). Subsequent runs restore the output files from the previous run so up-to-date targets do not rebuild. To enable continuous deployment in your own project:
 

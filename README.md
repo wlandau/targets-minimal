@@ -20,14 +20,17 @@ here](https://github.com/wlandau/targets-minimal/blob/03835c2aa4679dcf3f28c623a0
 
 ## How to run
 
-In the R console, call the
-[`tar_make()`](https://wlandau.github.io/targets/reference/tar_make.html)
-function to run the pipeline. Then, call `tar_read(hist)` to retrieve
-the histogram. Experiment with [other
-functions](https://wlandau.github.io/targets/reference/index.html) such
-as
-[`tar_visnetwork()`](https://wlandau.github.io/targets/reference/tar_visnetwork.html)
-to learn how they work.
+1.  Open the R console and call `renv::restore()` to install the
+    required R packages.
+2.  call the
+    [`tar_make()`](https://wlandau.github.io/targets/reference/tar_make.html)
+    function to run the pipeline.
+3.  Then, call `tar_read(hist)` to retrieve the histogram.
+4.  Experiment with [other
+    functions](https://wlandau.github.io/targets/reference/index.html)
+    such as
+    [`tar_visnetwork()`](https://wlandau.github.io/targets/reference/tar_visnetwork.html)
+    to learn how they work.
 
 ## File structure
 
@@ -53,7 +56,7 @@ an R Markdown report that reruns in the pipeline whenever the histogram
 of ozone changes
 ([details](https://books.ropensci.org/targets/files.html#literate-programming)).
 
-## Continuous deployment
+## Continuous deployment (advanced)
 
 Whenever this GitHub repository is updated, the `targets` pipeline runs
 in a [GitHub Actions
@@ -70,8 +73,8 @@ enable continuous deployment in your own project:
       - Call `targets::tar_renv()` to write a `_packages.R` file to
         expose hidden dependencies.
       - Call `renv::init()` to initialize the package library.
-      - At minimum, commit files `renv.lock` and `renv/activate.R` to
-        your Git repository.
+      - At minimum, commit files `.Rprofile`, `renv.lock`, and
+        `renv/activate.R` to your Git repository.
 2.  Commit the
     [`.github/workflows/targets.yaml`](https://github.com/wlandau/targets-minimal/blob/main/.github/workflows/targets.yaml)
     workflow file to your Git repository.
