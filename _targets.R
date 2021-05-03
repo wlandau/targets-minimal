@@ -16,7 +16,7 @@ list(
   tar_target(
     data,
     raw_data %>%
-      mutate(Ozone = replace_na(Ozone, mean(Ozone, na.rm = TRUE)))
+      filter(!is.na(Ozone))
   ),
   tar_target(hist, create_plot(data)),
   tar_target(fit, biglm(Ozone ~ Wind + Temp, data)),

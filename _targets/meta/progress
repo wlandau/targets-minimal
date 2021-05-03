@@ -1,1 +1,9 @@
 name|type|parent|branches|progress
+data|stem|data|0|started
+data|stem|data|0|built
+hist|stem|hist|0|started
+hist|stem|hist|0|built
+fit|stem|fit|0|started
+fit|stem|fit|0|built
+report|stem|report|0|started
+report|stem|report|0|built
