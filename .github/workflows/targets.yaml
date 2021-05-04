@@ -120,12 +120,11 @@ jobs:
           git commit -am "Run pipeline"
           git push origin targets-runs
 
-
-      - name: Prepare failure
+      - name: Prepare failure artifact
         if: failure()
         run: rm -r .git .targets-runs
 
-      - name: Upload failure
+      - name: Post failure artifact
         if: failure()
         uses: actions/upload-artifact@main
         with:
