@@ -1,5 +1,6 @@
 .targets-files
 .targets-runs/
+_targets/meta/.gitignore
 _targets/meta/meta
 _targets/meta/process
 _targets/meta/progress
